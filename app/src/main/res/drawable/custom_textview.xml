@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+   <!-- <gradient
+        android:startColor="#f3e5f5"
+        android:endColor="#f8bbd0"
+        android:angle="0"
+        android:type="linear"
+        />-->
+    <stroke android:color="#f06292"
+        android:width="1dp"/>
+
+<!--<solid android:color="#ffffff"/>-->
+<corners android:topRightRadius="@dimen/customtextview"
+    android:topLeftRadius="@dimen/customtextview"
+    android:bottomRightRadius="@dimen/customtextview"
+    android:bottomLeftRadius="@dimen/customtextview"/>
+</shape>

@@ -1,0 +1,91 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:fitsSystemWindows="true"
+    android:isScrollContainer="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.udaysaikumar.clgattendance.MarksFrgments.FragmentSem_11">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+       <!-- <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/headTable"
+            android:stretchColumns="*">
+        </TableLayout>-->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="7dp">
+
+
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tables11"
+    android:background="#eceff1"
+    android:stretchColumns="*">
+    <TableRow android:layout_marginBottom="1dp">
+        <TextView
+            android:background="@android:color/white"
+            android:id="@+id/subject"
+            android:fontFamily="@font/open_sans"
+            android:textColor="@color/t11"
+            android:gravity="center_vertical|center"
+            android:textSize="21sp" />
+
+        <TextView
+            android:background="@android:color/white"
+            android:id="@+id/internals"
+            android:fontFamily="@font/open_sans"
+            android:textColor="@color/t11"
+            android:gravity="center_vertical|center"
+            android:textSize="21sp" />
+
+        <TextView
+            android:background="@android:color/white"
+            android:id="@+id/externals"
+            android:fontFamily="@font/open_sans"
+            android:textColor="@color/t11"
+            android:gravity="center_vertical|center"
+            android:textSize="21sp" />
+
+        <TextView
+            android:background="@android:color/white"
+            android:id="@+id/total"
+            android:fontFamily="@font/open_sans"
+            android:textColor="@color/t11"
+            android:gravity="center_vertical|center"
+            android:textSize="21sp" />
+    </TableRow>
+
+</TableLayout>
+
+    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:cardCornerRadius="7dp">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tablesfinal"
+            android:background="#eceff1"
+            android:stretchColumns="*">
+        </TableLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+
+
+
+
+</ScrollView>

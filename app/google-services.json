@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "586686640357",
+    "firebase_url": "https://site-74340.firebaseio.com",
+    "project_id": "site-74340",
+    "storage_bucket": "site-74340.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586686640357:android:aaa31ead8abc1626",
+        "android_client_info": {
+          "package_name": "com.redants.site"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586686640357-utbh723bvba76tppccgap6m278et7auc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9DN0Ftj0JOdi5hSyysSNIrmV2R7qKsVc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

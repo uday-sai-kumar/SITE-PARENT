@@ -1,0 +1,96 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragattend"
+    android:background="#FFFFFF"
+    android:layout_height="match_parent">
+
+
+    <!-- TODO: Update blank fragment layout -->
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ProgressBar
+        android:id="@+id/progressAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+      />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:id="@+id/attendacelayout"
+    android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_margin="3dp"
+            app:strokeColor="#ffebee"
+            app:strokeWidth="1dp"
+            android:padding="1dp"
+            app:cardCornerRadius="8dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_custom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/myView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="0sp" />
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:maxHeight="40dp"
+                android:progressDrawable="@drawable/seek_bar_drawable"/>
+
+
+        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_margin="3dp"
+        app:strokeColor="#ffebee"
+        app:strokeWidth="1dp"
+        android:padding="1dp"
+        app:cardCornerRadius="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="wrap_content">
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:id="@+id/calenderView">
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+    </com.google.android.material.card.MaterialCardView>
+   <TableLayout
+       android:id="@+id/tableAttendance"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:stretchColumns="*"
+       >
+   </TableLayout>
+
+
+</LinearLayout>
+</FrameLayout>
+</ScrollView>

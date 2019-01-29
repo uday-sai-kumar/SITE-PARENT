@@ -2,8 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
    >
     <item android:state_checked="true"
-        android:drawable="@drawable/selected_bg_color" />
-    <item android:state_pressed="true"
-        android:drawable="@drawable/selected_bg_color" />
+        android:drawable="@drawable/red_circle" />
     <item android:drawable="@drawable/red_circle" />
 </selector>

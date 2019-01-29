@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mycoordinate"
+    android:background="#FFFFFF"
     tools:context=".BottomBarActivity">
 <RelativeLayout
     android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomNavigationView">-->
-<!--<RelativeLayout
+<!--<FrameLayout
     android:id="@+id/myLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

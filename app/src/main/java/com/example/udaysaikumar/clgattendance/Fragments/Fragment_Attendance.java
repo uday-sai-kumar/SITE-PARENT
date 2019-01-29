@@ -16,7 +16,6 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -50,7 +49,7 @@ public class Fragment_Attendance extends Fragment {
 
     RetroGet retroGet;
     String API_KEY="AKPhEaFsE8c1f98hiX1VXa0dj5_7KFq0";
-ProgressBar progressAttendance;
+//ProgressBar progressAttendance;
 LinearLayout linearLayout;
     TableLayout tableAttendance;
     MaterialCalendarView mCV;
@@ -80,7 +79,7 @@ myText=v.findViewById(R.id.myView);
        // satisfacotry=v.findViewById(R.id.satisfactory);
       //  excellent=v.findViewById(R.id.excellent);
         tableAttendance=v.findViewById(R.id.tableAttendance);
-        progressAttendance=v.findViewById(R.id.progressAttendance);
+       // progressAttendance=v.findViewById(R.id.progressAttendance);
         linearLayout=v.findViewById(R.id.attendacelayout);
         mCV=v.findViewById(R.id.calenderView);
         mCV.canScrollVertically(1);
@@ -92,7 +91,7 @@ myText=v.findViewById(R.id.myView);
        // cd.setFormatDigits(2);
        // cd.setUnit("%");
        // cd.setStepSize(0.08f);
-        progressAttendance.setIndeterminate(true);
+        //progressAttendance.setIndeterminate(true);
 seekBar.setOnTouchListener(new View.OnTouchListener() {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -198,7 +197,7 @@ maxX=point.x;
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
-               progressAttendance.setVisibility(View.INVISIBLE);
+               //progressAttendance.setVisibility(View.INVISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
                  }
         });
@@ -248,13 +247,13 @@ mCV.addDecorator(new DayDecorator(v.getContext(),calendarDay));
 
             }
         });
-        progressAttendance.setVisibility(View.INVISIBLE);
+        //progressAttendance.setVisibility(View.INVISIBLE);
         linearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-        progressAttendance.setVisibility(View.INVISIBLE);
+       // progressAttendance.setVisibility(View.INVISIBLE);
         linearLayout.setVisibility(View.VISIBLE);
         Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
 
@@ -289,12 +288,12 @@ mCV.addDecorator(new DayDecorator(v.getContext(),calendarDay));
                 System.out.println("wowhellojson"+response.body());
                 if(response.body()!=null)
                 {
-                    if(!Objects.requireNonNull(response.body()).isEmpty())
-                    {
-                        String json=response.body();
-                        System.out.println("wowhellojson"+json);
-                        FragmentManager manager=getFragmentManager();
-                        try {
+                    try {
+                        if (!Objects.requireNonNull(response.body()).isEmpty()) {
+                            String json = response.body();
+                            System.out.println("wowhellojson" + json);
+                            FragmentManager manager = getFragmentManager();
+
                             FragmentTransaction fr = null;
                             if (manager != null) {
                                 fr = manager.beginTransaction();
@@ -307,10 +306,10 @@ mCV.addDecorator(new DayDecorator(v.getContext(),calendarDay));
 
                             }
 
-                        }catch (Exception e){
-                           clearFlags();
-                        }
 
+                        }
+                    }catch (Exception e){
+                        clearFlags();
                     }
                 }
 
@@ -319,7 +318,7 @@ mCV.addDecorator(new DayDecorator(v.getContext(),calendarDay));
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
 clearFlags();
-                Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
+               // Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
             }
         });
     }

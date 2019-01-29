@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.res.ResourcesCompat;
@@ -183,54 +184,60 @@ Bitmap bitmap;
                        TableRow tableRow1 = new TableRow(v.getContext());
                        tableRow1.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                        TextView ttt = new TextView(v.getContext());
-                       ttt.setText("");
+                       ttt.setText("Year");
+                       ttt.setGravity(Gravity.CENTER);
                        ttt.setTypeface(typeface);
+                       ttt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                        tableRow1.addView(ttt);
                        TextView tt = new TextView(v.getContext());
                        tt.setText(getResources().getText(R.string.sem1));
                        tt.setGravity(Gravity.CENTER);
                        tt.setTypeface(typeface);
-                       tt.setBackgroundColor(Color.parseColor("#ffcdd2"));
+                      // tt.setBackgroundColor(Color.parseColor("#ffcdd2"));
                        tt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                        tableRow1.addView(tt);
                        TextView tt1 = new TextView(v.getContext());
                        tt1.setText(getResources().getText(R.string.sem2));
                        tt1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                        tt1.setTypeface(typeface);
-                       tt1.setBackgroundColor(Color.parseColor("#ffcdd2"));
+                      // tt1.setBackgroundColor(Color.parseColor("#ffcdd2"));
                        tt1.setGravity(Gravity.CENTER);
                        tableRow1.addView(tt1);
                        btech.addView(tableRow1);
                        while (it1.hasNext()) {
+
                            String key = it1.next();
                            TableRow tableRow = new TableRow(v.getContext());
                            tableRow.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                            TextView t1 = new TextView(v.getContext());
-                           t1.setText(key);
                            t1.setTypeface(typeface);
                            t1.setGravity(Gravity.CENTER);
                            t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                            t1.setTextColor(Color.WHITE);
+                           t1.setText(key);
                            t1.setBackgroundColor(getResources().getColor(R.color.bagroundText));
                            //t1.setBackgroundResource(R.drawable.table_custom_text_conclusion);
                            tableRow.addView(t1);
                            JSONObject sem = jj1.getJSONObject(key);
                            Iterator<String> semit = sem.keys();
                            while (semit.hasNext()) {
-                               String sems = semit.next();
-                               TextView t2 = new TextView(v.getContext());
-                               t2.setTypeface(typeface);
-                               t2.setGravity(Gravity.CENTER);
-                               t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
-                               t2.setBackgroundColor(Color.WHITE);
-                               // t2.setBackgroundResource(R.drawable.table_custom_text_conclusion);
-                               t2.setText(sem.get(sems).toString());
-                               tableRow.addView(t2);
+
+                                   String sems = semit.next();
+                                   TextView t2 = new TextView(v.getContext());
+                                   t2.setTypeface(typeface);
+                                   t2.setGravity(Gravity.CENTER);
+                                   t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
+                                   t2.setBackgroundColor(Color.WHITE);
+                                   // t2.setBackgroundResource(R.drawable.table_custom_text_conclusion);
+                                   t2.setText(sem.get(sems).toString());
+                                   tableRow.addView(t2);
+
                            }
                            btech.addView(tableRow);
-                           linearProgress.setVisibility(View.VISIBLE);
 
                        }
+                       linearProgress.setVisibility(View.VISIBLE);
+
                    } catch (JSONException e) {
                        e.printStackTrace();
                    }

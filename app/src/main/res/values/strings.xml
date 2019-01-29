@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SITE</string>
+    <string name="app_name">SITE PARENT</string>
     <string name="hint">Regno</string>
     <string name="login">Login</string>
     <dimen name="button_round">15dp</dimen>
@@ -33,6 +33,6 @@
     <string name="enter_otp_here">enter OTP here</string>
     <string name="loginn">Login</string>
     <string name="resent_otp">resent OTP</string>
-    <string name="feedback">Feedback</string>
-    <string name="sorry">sorry, attendance data not found</string>
+    <string name="feedback">Suggestions</string>
+    <string name="sorry">sorry, attendance data not posted</string>
 </resources>

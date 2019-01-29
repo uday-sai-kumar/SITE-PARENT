@@ -1,5 +1,6 @@
 package com.example.udaysaikumar.clgattendance.Login;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
@@ -86,32 +87,12 @@ public class MainActivity extends AppCompatActivity {
                                         editor.putString("phone", phoneNo);
                                         editor.putString("username",list.get(0).getRegno());
                                         editor.apply();
-                                     /*   Random random=new Random();
-                                        int n=random.nextInt(7000)+1000;
-                                        String otp="Your one time password is \n"+n;
-
-                                        editor.putInt("otp",n);
-                                        editor.apply();
-                                        retroGet= RetrofitOPTServer.getRetrofitOTP().create(RetroGet.class);
-                                        String un="sasicollege",pass="SITE2002",from="INSITE",to=phoneNo,type="1";
-                                        Call<String> retro=retroGet.getOTP(un,pass,from,to,otp,type);
-                                        retro.enqueue(new Callback<String>() {
-                                            @Override
-                                            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-
-                                                //  Toast.makeText(view.getContext(), response.body(),Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                                                //Toast.makeText(view.getContext(),"Good",Toast.LENGTH_SHORT).show();
-                                            }
-                                        });*/
                                         progressBar.setVisibility(View.INVISIBLE);
                                         Intent i = new Intent(MainActivity.this, OTPActivity.class);
-                                        startActivity(i);
+                                     //   startActivity(i,ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                                         startActivity(i);
+
                                         finish();
-                                        //Toast.makeText(MainActivity.this,"LoginSuccess",Toast.LENGTH_LONG).show();
                                     }
                                     else {
                                         System.out.println("ourresponse 1"+list);
@@ -132,74 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
                             }
 
-
-                           /* else
-                            {
-                                System.out.println("ourresponse 3"+list);
-
-                              //  hello(q);
-                            }*/
                            enableView(true);
 
                         }
-                      /*  private void hello(String query){
-                            retroGet = RetroServer.getRetrofit().create(RetroGet.class);
-                            System.out.println("inhello");
-                            Call<List<PhoneData>> dataCall = retroGet.getPhoneData("PHONENUMBERS",API_KEY,query);
-                            dataCall.enqueue(new Callback<List<PhoneData>>() {
-                                @Override
-                                public void onResponse(@NonNull Call<List<PhoneData>> call, @NonNull Response<List<PhoneData>> response) {
-                                    try {
-                                        if (response.body() != null & !response.body().isEmpty()) {
-                                            list = response.body();
-                                            if (list != null && !list.isEmpty()) {
-                                                if (phoneNo.equals(list.get(0).getParentmobile())) {
-                                                    SharedPreferences s = getSharedPreferences("MyLogin", MODE_PRIVATE);
-                                                    SharedPreferences.Editor editor = s.edit();
-                                                    Random random = new Random();
-                                                    int n = random.nextInt(7000) + 1000;
-                                                    String otp = "Your one time password is \n" + n;
-                                                    editor.putString("username", list.get(0).getRegno());
-                                                    editor.putString("phone", phoneNo);
-                                                    editor.putInt("otp", n);
-                                                    editor.apply();
-                                                    progressBar.setVisibility(View.INVISIBLE);
-                                                    retroGet = RetrofitOPTServer.getRetrofitOTP().create(RetroGet.class);
-                                                    String un = "sasicollege", pass = "SITE2002", from = "INSITE", to = phoneNo, type = "1";
-                                                    Call<String> retro = retroGet.getOTP(un, pass, from, to, otp, type);
-                                                    retro.enqueue(new Callback<String>() {
-                                                        @Override
-                                                        public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-
-
-                                                        }
-
-                                                        @Override
-                                                        public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-
-                                                        }
-                                                    });
-                                                    Intent i = new Intent(MainActivity.this, OTPActivity.class);
-                                                    startActivity(i);
-                                                    finish();
-                                                }
-                                            }
-                                        } else {
-                                            fun();
-                                        }
-                                    }catch (Exception e){
-
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<List<PhoneData>> call, @NonNull Throwable t) {
-                                    Toast.makeText(MainActivity.this, "Failure, please connect to active network", Toast.LENGTH_LONG).show();
-
-                                }
-                            });
-                        }*/
-
                         @Override
                         public void onFailure(@NonNull Call<List<PhoneData>> call, @NonNull Throwable t) {
                           enableView(true);
@@ -217,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
     void fun(){
         enableView(true);
-        Toast.makeText(MainActivity.this, "parent number not registered", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "number not registered", Toast.LENGTH_LONG).show();
     }
 
 }

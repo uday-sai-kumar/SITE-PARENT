@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Splash_Screen"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -28,14 +29,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".BottomBarActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Login.MainActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity android:name=".Login.OTPActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
     </application>
 

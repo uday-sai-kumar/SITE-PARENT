@@ -1,5 +1,6 @@
 package com.example.udaysaikumar.clgattendance;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,8 @@ import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,9 +21,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.udaysaikumar.clgattendance.Fragments.Fragment_Attendance;
 import com.example.udaysaikumar.clgattendance.Fragments.Fragment_Feedback;
@@ -34,14 +39,15 @@ public class BottomBarActivity extends AppCompatActivity {
     Fragment_Home fragment_home;
    Fragment_Attendance fragment_attendance;
    Fragment_Marks fragment_marks;
+   Fragment_Feedback fragment_feedback;
 BottomNavigationView bottomNavigationView;
 RelativeLayout relativeLayout;
 CoordinatorLayout coordinatorLayout;
 FrameLayout frameLayout;
 int i;
-//RelativeLayout myLayout;
+//FrameLayout myLayout;
     ViewPager viewPager;
-Fragment frag=null;
+Fragment fragment=null;
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater=getMenuInflater();
@@ -79,20 +85,23 @@ Fragment frag=null;
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         coordinatorLayout=findViewById(R.id.mycoordinate);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
-      //  relativeLayout=findViewById(R.id.myrelative);
+        relativeLayout=findViewById(R.id.myrelative);
        // frameLayout=findViewById(R.id.frame);
 viewPager=findViewById(R.id.viewPager);
 viewPager.setOffscreenPageLimit(3);
 //myLayout=findViewById(R.id.myLayout);
-//viewPager.setPageTransformer(false,new PagerTransformer());
+viewPager.setPageTransformer(false,new PagerTransformer());
         final FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
       fragment_attendance=new Fragment_Attendance();
       fragment_marks=new Fragment_Marks();
       fragment_home=new Fragment_Home();
+      fragment_feedback=new Fragment_Feedback();
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
        // fragmentTransaction.replace(R.id.myLayout,fragment_home);
         //fragmentTransaction.addToBackStack(null);
         //fragmentTransaction.commit();
+        //loadFragment(fragment_home);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -101,14 +110,15 @@ viewPager.setOffscreenPageLimit(3);
         {
             case R.id.menu_home:
                 //Log.d("fragmentcheck","home");
-               // fragmentTransaction.replace(R.id.myLayout,fragment_home);
+               //fragment=fragment_home;
                 viewPager.setCurrentItem(0);
                 break;
                 //return  true;
 
             case R.id.menu_attendance:
                 Log.d("fragmentcheck","home1");
-             //   fragmentTransaction.replace(R.id.myLayout,fragment_attendance);
+               // fragment=fragment_attendance;
+                //   fragmentTransaction.replace(R.id.myLayout,fragment_attendance);
                // fragmentTransaction.addToBackStack(null);
                 //fragmentTransaction.commit();
 
@@ -121,15 +131,17 @@ viewPager.setOffscreenPageLimit(3);
                 //fragmentTransaction.replace(R.id.myLayout,fragment_marks);
                 //fragmentTransaction.addToBackStack(null);
                 //fragmentTransaction.commit();
-                 viewPager.setCurrentItem(2);
+               // fragment=fragment_marks;
+                viewPager.setCurrentItem(2);
                 break;
                 //return true;
             case R.id.feedback:
-                Log.d("fragmentcheck","home3");
+               // Log.d("fragmentcheck","home3");
               //  fragmentTransaction.replace(R.id.myLayout,new Fragment_Feedback());
                // fragmentTransaction.addToBackStack(null);
                 //fragmentTransaction.commit();
-                 viewPager.setCurrentItem(3);
+               // fragment=fragment_feedback;
+                viewPager.setCurrentItem(3);
                 break;
 
 
@@ -138,31 +150,46 @@ viewPager.setOffscreenPageLimit(3);
 
 
         }
-        return  true;
+      //  return  loadFragment(fragment);
+        return true;
     }
 });
 checkNet();
     }
+    @SuppressLint("ClickableViewAccessibility")
     public void checkNet(){
-        ConnectivityManager connectivityManager= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        assert connectivityManager != null;
-        NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            assert connectivityManager != null;
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
 
-            if (networkInfo!=null && networkInfo.isConnected()) {
+            if (networkInfo != null && networkInfo.isConnected()) {
                 bottomNavigationView.setSelectedItemId(R.id.menu_home);
                 setUpPager(viewPager);
             } else {
+                //   Toast.makeText(getApplicationContext(),"what this fuck",Toast.LENGTH_SHORT).show();
                 Snackbar snackbar = Snackbar.make(relativeLayout, "No internt connection", Snackbar.LENGTH_INDEFINITE).setAction("retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         checkNet();
                     }
+                }).setBehavior(new BaseTransientBottomBar.Behavior() {
+                    @Override
+                    public boolean canSwipeDismissView(View view) {
+                        return false;
+                    }
+
                 });
+
                 snackbar.show();
 
 
             }
+        }
+            catch (Exception e){
+                Log.d("bottombarActive",e.getMessage());
+        }
         
     }
     private  void setUpPager(ViewPager pager){
@@ -175,5 +202,17 @@ checkNet();
         pager.setAdapter(pagerAdapter);
 
     }
+    /*private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+          fragmentTransaction
+                    .replace(R.id.myLayout, fragment).addToBackStack(null)
+                    .commit();
+
+            return true;
+        }
+        return false;
+    }*/
 
 }

@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.example.udaysaikumar.clgattendance.BottomBarActivity;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -15,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -51,7 +56,7 @@ public class Fragment_Marks extends Fragment {
 ViewPager viewPager;
 TabLayout tabLayout;
 ProgressBar progressBar;
-
+FrameLayout frameLayout;
 RelativeLayout relativeLayout;
 String s;
 ImageView emoji;
@@ -70,6 +75,7 @@ SeekBar seekBar;
     int maxX;
     int imageId;
    // ImageView myImage;
+    View v;
     ViewPagerAdapter viewPagerAdapter;
     public Fragment_Marks() {
         // Required empty public constructor
@@ -80,9 +86,9 @@ SeekBar seekBar;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View v=inflater.inflate(R.layout.fragment_fragment__marks, container, false);
-        progressBar=v.findViewById(R.id.marksprogress);
-        relativeLayout=v.findViewById(R.id.relativemarks);
+       v=inflater.inflate(R.layout.fragment_fragment__marks, container, false);
+       // progressBar=v.findViewById(R.id.marksprogress);
+       // relativeLayout=v.findViewById(R.id.relativemarks);
        // bad=v.findViewById(R.id.bad);
         seekBar=v.findViewById(R.id.seekBar);
         myText=v.findViewById(R.id.myView);
@@ -243,13 +249,13 @@ SeekBar seekBar;
                                 // excellent.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_excellent));
 
                             }else if(f>65){
-                                imageId=R.drawable.ic_crying;
+                                imageId=R.drawable.ic_sad;
                                 /// satisfacotry.setText(f.toString());
                                 //  satisfacotry.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_satisfactory));
 
                             }
                             else {
-                                imageId=R.drawable.ic_sad;
+                                imageId=R.drawable.ic_crying;
                                 //  bad.setText(f.toString());
                                 // bad.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_bad));
 
@@ -281,8 +287,8 @@ SeekBar seekBar;
                         viewPager.setAdapter(adapter);
                         // viewPager.arrowScroll(ViewPager.FOCUS_RIGHT);
                         tabLayout.setupWithViewPager(viewPager);
-                        progressBar.setVisibility(View.INVISIBLE);
-                        relativeLayout.setVisibility(View.VISIBLE);
+                       // progressBar.setVisibility(View.INVISIBLE);
+                       // relativeLayout.setVisibility(View.VISIBLE);
 
 
                     } catch (JSONException e) {
@@ -292,15 +298,16 @@ SeekBar seekBar;
 
                 }
                 else{
-                    progressBar.setVisibility(View.INVISIBLE);
+                    //progressBar.setVisibility(View.INVISIBLE);
 
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
+               // progressBar.setVisibility(View.INVISIBLE);
+
+                //Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
             }
         });
 

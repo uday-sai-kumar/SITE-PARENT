@@ -1,6 +1,7 @@
 package com.example.udaysaikumar.clgattendance.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
 import android.text.style.ForegroundColorSpan;
@@ -29,6 +30,7 @@ public class DayDecorator implements DayViewDecorator{
     public void decorate(DayViewFacade view) {
         //view.addSpan(drawable);
         view.setBackgroundDrawable(drawable);
-        view.addSpan(new ForegroundColorSpan(c.getResources().getColor(R.color.todaydate)));
+       // view.addSpan(new ForegroundColorSpan(Color.WHITE));
+        view.addSpan(new DotSpan(5,Color.WHITE));
     }
 }

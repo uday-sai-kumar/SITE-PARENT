@@ -73,7 +73,7 @@ public class DotSpan implements LineBackgroundSpan {
     if (color != 0) {
       paint.setColor(color);
     }
-    canvas.drawText("A",(left+right)/2-4,bottom+2*radius+4,paint);
+    canvas.drawText(".",(left+right)/2-4,bottom+2*radius+4,paint);
    // canvas.drawCircle((left + right) / 2, bottom + radius, radius, paint);
     paint.setColor(oldColor);
   }

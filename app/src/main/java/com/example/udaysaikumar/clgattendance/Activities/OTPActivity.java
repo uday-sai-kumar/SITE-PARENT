@@ -1,4 +1,4 @@
-package com.example.udaysaikumar.clgattendance.Login;
+package com.example.udaysaikumar.clgattendance.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,15 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.udaysaikumar.clgattendance.BottomBarActivity;
+import com.example.udaysaikumar.clgattendance.Activities.BottomBarActivity;
+import com.example.udaysaikumar.clgattendance.Login.LoginData;
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroServer;

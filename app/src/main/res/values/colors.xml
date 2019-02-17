@@ -20,4 +20,9 @@
     <color name="bad">#dbd32f2f</color>
     <color name="selectcolor">#9fa6cc</color>
 
+    <!--TODO:STROKE COLORS-->
+    <color name="cardStrokeColor">#ff5252</color>
+    
+    <color name="blueGrey">#eceff1</color>
+
 </resources>

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
 android:fitsSystemWindows="true"
+    android:background="@color/blueGrey"
     tools:context="com.example.udaysaikumar.clgattendance.Fragments.Fragment_Feedback">
 
     <!-- TODO: Update blank fragment layout -->
@@ -37,10 +38,13 @@ android:fitsSystemWindows="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="7dp"
-                        android:clickable="true"
-                        android:focusable="true"
                         app:cardCornerRadius="8dp"
-                        app:strokeWidth="3dp">
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:strokeColor="@color/cardStrokeColor"
+                        app:strokeWidth="@dimen/cardStrokeWidth"
+                        android:focusable="true"
+                      >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -72,7 +76,10 @@ android:fitsSystemWindows="true"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardCornerRadius="8dp"
-                        app:strokeWidth="3dp">
+                        app:strokeColor="@color/cardStrokeColor"
+                        app:strokeWidth="@dimen/cardStrokeWidth"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -103,7 +110,10 @@ android:fitsSystemWindows="true"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardCornerRadius="8dp"
-                        app:strokeWidth="3dp">
+                        app:strokeColor="@color/cardStrokeColor"
+                        app:strokeWidth="@dimen/cardStrokeWidth"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -139,6 +149,9 @@ android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
+            app:strokeColor="@color/cardStrokeColor"
+            app:strokeWidth="@dimen/cardStrokeWidth"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_margin="7dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -155,17 +168,21 @@ android:fitsSystemWindows="true"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textStyle="bold" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/bugwhatsapp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:strokeWidth="@dimen/cardStrokeWidth"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_margin="7dp">
 
             <ImageView
                 android:layout_width="@dimen/share"
                 android:layout_height="@dimen/share"
                 android:layout_gravity="center"
                 android:src="@drawable/whatsapp" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -177,17 +194,21 @@ android:fitsSystemWindows="true"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textStyle="bold" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/bugreport"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:strokeWidth="@dimen/cardStrokeWidth"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_margin="7dp">
 
             <ImageView
                 android:layout_width="@dimen/share"
                 android:layout_height="@dimen/share"
                 android:layout_gravity="center"
                 android:src="@drawable/mail" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -203,11 +224,15 @@ android:fitsSystemWindows="true"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/appshare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="8dp"
+                app:strokeWidth="@dimen/cardStrokeWidth"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_margin="7dp">
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -241,7 +266,7 @@ android:fitsSystemWindows="true"
                             android:src="@drawable/mail" />
                     </TableRow>
                 </TableLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
 

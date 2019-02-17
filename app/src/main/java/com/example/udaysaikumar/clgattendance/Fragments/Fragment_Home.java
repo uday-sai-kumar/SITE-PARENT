@@ -13,7 +13,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.res.ResourcesCompat;
@@ -23,8 +22,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
@@ -40,6 +37,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.udaysaikumar.clgattendance.Interfaces.ConnectionInterface;
+import com.example.udaysaikumar.clgattendance.Interfaces.ImageInterface;
 import com.example.udaysaikumar.clgattendance.Login.LoginData;
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
@@ -56,6 +55,7 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,38 +69,34 @@ import static android.content.Context.MODE_PRIVATE;
 public class Fragment_Home extends Fragment {
 
 
-    String URL_PROFILE="https://firebasestorage.googleapis.com/v0/b/site-74340.appspot.com/o/default.png?alt=media&token=805af3b9-0cf3-4a26-9831-c5cee7b827ca";
-ImageView profile_photo;
-ProgressBar homeProgress;
-String BRANCH="CSE_2015_2019";
-TextView appusername,regno;
-RetroGet retroGet;
-TableLayout basic,btech;
-LinearLayout linearProgress;
-StorageReference mStorageRef,childRef,mStorage;
-ImageButton change_profile;
-Bitmap bitmap;
-    String UNAME;
+private CircleImageView profile_photo;
+private ProgressBar homeProgress;
+private TextView appusername,regno;
+private TableLayout basic,btech;
+private LinearLayout linearProgress;
+private StorageReference mStorageRef,childRef,mStorage;
+private Bitmap bitmap;
+   private String UNAME;
     public final int REQUEST_CODE = 2;
-    View v;
+   private View v;
+ private    ConnectionInterface connectionInterface;
+ private ImageInterface imageInterface;
 
-    String API_KEY="AKPhEaFsE8c1f98hiX1VXa0dj5_7KFq0";
-    String f;
+ private String API_KEY;
+ private String TAG="Fragment_Home_Log";
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          v=inflater.inflate(R.layout.fragment_fragment__home, container, false);
         profile_photo=v.findViewById(R.id.profile_photo);
-       // imageProgress=v.findViewById(R.id.imageProgress);
         homeProgress=v.findViewById(R.id.homeprogress);
         linearProgress=v.findViewById(R.id.linearprogress);
-       // change_profile=v.findViewById(R.id.change_profile);
         appusername=v.findViewById(R.id.appusername);
         regno=v.findViewById(R.id.appregno);
         basic=v.findViewById(R.id.basic);
         btech=v.findViewById(R.id.btech);
-
+API_KEY=getResources().getString(R.string.APIKEY);
         RetroGet retroGet;
         mStorageRef = FirebaseStorage.getInstance().getReference();
         SharedPreferences sharedPreferences=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
@@ -249,6 +245,12 @@ Bitmap bitmap;
                public void onFailure (@NonNull Call < String > call, @NonNull Throwable t){
                linearProgress.setVisibility(View.INVISIBLE);
                homeProgress.setVisibility(View.INVISIBLE);
+               connectionInterface= (ConnectionInterface) getActivity();
+               try {
+                   connectionInterface.reload();
+               }catch (NullPointerException e){
+                   Log.d(TAG,e.getMessage());
+               }
                //imageProgress.setVisibility(View.INVISIBLE);
 
            }
@@ -295,8 +297,10 @@ Bitmap bitmap;
             @Override
             public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                 profile_photo.setImageBitmap(resource);
-                bitmap=resource;
-                System.out.println("wowbitmap"+bitmap.toString());
+                //bitmap=resource;
+                //System.out.println("wowbitmap"+bitmap.toString());
+                ImageInterface imageInterface= (ImageInterface) getActivity();
+                imageInterface.setImage(resource);
                 //imageProgress.setVisibility(View.INVISIBLE);
                 return false;
             }

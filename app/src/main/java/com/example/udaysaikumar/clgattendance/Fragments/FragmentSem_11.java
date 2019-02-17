@@ -1,4 +1,4 @@
-package com.example.udaysaikumar.clgattendance.MarksFrgments;
+package com.example.udaysaikumar.clgattendance.Fragments;
 
 
 import android.content.SharedPreferences;
@@ -100,7 +100,6 @@ public class FragmentSem_11 extends Fragment {
                 TableRow tr = new TableRow(v.getContext());
                TableLayout.LayoutParams layoutParams=new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
                layoutParams.setMargins(0,0,0,1);
-
                 tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
@@ -144,18 +143,17 @@ public class FragmentSem_11 extends Fragment {
                 TableRow tr = new TableRow(v.getContext());
                 TableRow.LayoutParams layoutParams=new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0,0,0,1);
-
-                tr.setLayoutParams(layoutParams);
+            //    tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
                 t.setText(key);
-                t.setGravity(Gravity.CENTER);
+                t.setGravity(Gravity.START);
                 t.setTextColor(Color.BLACK);
                 t.setBackgroundColor(Color.WHITE);
                 // t.setBackgroundResource(R.drawable.table_custom_text_conclusion);
                 t.setTypeface(typeface);
                 t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                tr.addView(t);
+                tr.addView(t,layoutParams);
                 TextView t1 = new TextView(v.getContext());
                 //t1.setBackgroundResource(R.drawable.table_custom_text_conclusion);
                 t1.setText(jj4.get(key).toString());
@@ -163,7 +161,7 @@ public class FragmentSem_11 extends Fragment {
                 t1.setBackgroundColor(Color.WHITE);
                 t1.setTypeface(typeface);
                 t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                tr.addView(t1);
+                tr.addView(t1,layoutParams);
                 tableLayout1.addView(tr, layoutParams);
 
             }

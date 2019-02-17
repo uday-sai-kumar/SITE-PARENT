@@ -6,10 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-
-import com.example.udaysaikumar.clgattendance.BottomBarActivity;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.udaysaikumar.clgattendance.Interfaces.ConnectionInterface;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -19,33 +16,23 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetrofitMarksServer;
-import com.example.udaysaikumar.clgattendance.ViewPagerAdapter;
-
+import com.example.udaysaikumar.clgattendance.Adapters.ViewPagerAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -53,30 +40,23 @@ import static android.content.Context.MODE_PRIVATE;
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_Marks extends Fragment {
-ViewPager viewPager;
-TabLayout tabLayout;
-ProgressBar progressBar;
-FrameLayout frameLayout;
-RelativeLayout relativeLayout;
-String s;
-ImageView emoji;
-TextView bad,satisfacotry,excellent;
-    String API_KEY="AKPhEaFsE8c1f98hiX1VXa0dj5_7KFq0";
-    RetroGet retroGet;
-    JSONArray j;
-    JSONObject job;
-    String st;
-    List<String> list=new ArrayList<>();
-    List<String> listSecond=new ArrayList<>();
-    Map<String,JSONObject> map=new LinkedHashMap<>();
-CircleDisplay cd;
-SeekBar seekBar;
-    TextView myText;
-    int maxX;
-    int imageId;
+private ViewPager viewPager;
+private TabLayout tabLayout;
+private String s;
+   private String API_KEY;
+   private RetroGet retroGet;
+    private JSONArray j;
+  private   JSONObject job;
+ private    String st;
+ private    List<String> list=new ArrayList<>();
+    private List<String> listSecond=new ArrayList<>();
+  private   Map<String,JSONObject> map=new LinkedHashMap<>();
+private SeekBar seekBar;
+ private    TextView myText;
+ private    int maxX;
+   private int imageId;
    // ImageView myImage;
-    View v;
-    ViewPagerAdapter viewPagerAdapter;
+   private View v;
     public Fragment_Marks() {
         // Required empty public constructor
     }
@@ -87,13 +67,9 @@ SeekBar seekBar;
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        v=inflater.inflate(R.layout.fragment_fragment__marks, container, false);
-       // progressBar=v.findViewById(R.id.marksprogress);
-       // relativeLayout=v.findViewById(R.id.relativemarks);
-       // bad=v.findViewById(R.id.bad);
         seekBar=v.findViewById(R.id.seekBar);
         myText=v.findViewById(R.id.myView);
-       /// satisfacotry=v.findViewById(R.id.satisfactory);
-        //excellent=v.findViewById(R.id.excellent);
+    API_KEY=getResources().getString(R.string.APIKEY);
         SharedPreferences sharedPreferences=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
         final String UNAME=sharedPreferences.getString("username","");
        // String PASS=sharedPreferences.getString("password","");
@@ -306,7 +282,8 @@ SeekBar seekBar;
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                // progressBar.setVisibility(View.INVISIBLE);
-
+                ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
+                connectionInterface.reload();
                 //Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
             }
         });

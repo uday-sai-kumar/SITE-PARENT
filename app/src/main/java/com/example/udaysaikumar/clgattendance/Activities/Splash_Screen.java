@@ -1,6 +1,5 @@
-package com.example.udaysaikumar.clgattendance;
+package com.example.udaysaikumar.clgattendance.Activities;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import com.example.udaysaikumar.clgattendance.Login.MainActivity;
+import com.example.udaysaikumar.clgattendance.R;
 
 import java.util.Objects;
 

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:id="@+id/mycoordinate"
     android:background="#FFFFFF"
-    tools:context=".BottomBarActivity">
+    tools:context=".Activities.BottomBarActivity">
+
 <RelativeLayout
     android:layout_width="wrap_content"
     android:id="@+id/myrelative"
@@ -37,7 +38,7 @@
     android:layout_above="@id/bottomNavigationView"
     android:layout_alignParentTop="true"
     />-->
-    <com.example.udaysaikumar.clgattendance.CustomViewPager
+    <com.example.udaysaikumar.clgattendance.CustomViewPage.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,4 +1,4 @@
-package com.example.udaysaikumar.clgattendance;
+package com.example.udaysaikumar.clgattendance.Adapters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

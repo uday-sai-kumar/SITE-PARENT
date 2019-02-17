@@ -35,4 +35,12 @@
     <string name="resent_otp">resent OTP</string>
     <string name="feedback">Suggestions</string>
     <string name="sorry">sorry, attendance data not posted</string>
+
+
+
+    <!--Attendance Strings-->
+<string name="APIKEY">AKPhEaFsE8c1f98hiX1VXa0dj5_7KFq0</string>
+    <string name="attendanceCollection">ATTENDANCE</string>
+
+
 </resources>

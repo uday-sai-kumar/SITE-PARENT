@@ -1,11 +1,11 @@
-package com.example.udaysaikumar.clgattendance;
+package com.example.udaysaikumar.clgattendance.Adapters;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.udaysaikumar.clgattendance.MarksFrgments.FragmentSem_11;
+import com.example.udaysaikumar.clgattendance.Fragments.FragmentSem_11;
 
 import org.json.JSONObject;
 
@@ -21,6 +21,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     Map<String,JSONObject> map=new LinkedHashMap<>();
     //String[] keys;
     public  String[] tabs={"SEM 11","SEM 12","SEM 21","SEM 22","SEM 31","SEM 32","SEM 41","SEM 42"};
+   // public  String[] tabs={"SEM 11","SEM 12","SEM 21","SEM 22","SEM 31"};
  public JSONObject job;
  public ViewPagerAdapter(FragmentManager fm,Map<String,JSONObject> map,List<String> listSecond){
      super(fm);
@@ -73,12 +74,16 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return listSecond.size();
+     if(listSecond.size()<=tabs.length)
+     {
+         return listSecond.size();
+     }else return tabs.length;
     }
     @Override
     public CharSequence getPageTitle(int i)
     {
-       return tabs[i];
+return tabs[i];
+
     }
 
 }

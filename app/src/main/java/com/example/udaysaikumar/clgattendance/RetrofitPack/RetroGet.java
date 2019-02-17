@@ -1,8 +1,7 @@
 package com.example.udaysaikumar.clgattendance.RetrofitPack;
 import com.example.udaysaikumar.clgattendance.Login.LoginData;
 import com.example.udaysaikumar.clgattendance.Login.PhoneData;
-import com.example.udaysaikumar.clgattendance.MarksPack.MarksData;
-import com.example.udaysaikumar.clgattendance.UserDetails;
+import com.example.udaysaikumar.clgattendance.Login.UserDetails;
 
 import java.util.List;
 

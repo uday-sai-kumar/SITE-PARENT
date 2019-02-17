@@ -1,4 +1,4 @@
-package com.example.udaysaikumar.clgattendance;
+package com.example.udaysaikumar.clgattendance.CustomViewPage;
 
 import android.content.Context;
 import androidx.annotation.NonNull;

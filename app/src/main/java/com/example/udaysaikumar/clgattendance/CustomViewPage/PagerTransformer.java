@@ -1,4 +1,4 @@
-package com.example.udaysaikumar.clgattendance;
+package com.example.udaysaikumar.clgattendance.CustomViewPage;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;

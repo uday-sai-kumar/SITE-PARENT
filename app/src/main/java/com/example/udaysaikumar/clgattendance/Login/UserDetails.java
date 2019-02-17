@@ -1,4 +1,4 @@
-package com.example.udaysaikumar.clgattendance;
+package com.example.udaysaikumar.clgattendance.Login;
 import com.google.gson.annotations.SerializedName;
 
 

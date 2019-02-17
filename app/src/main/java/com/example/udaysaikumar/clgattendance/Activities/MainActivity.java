@@ -1,6 +1,5 @@
-package com.example.udaysaikumar.clgattendance.Login;
+package com.example.udaysaikumar.clgattendance.Activities;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
@@ -12,14 +11,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.udaysaikumar.clgattendance.Login.PhoneData;
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroServer;
-import com.example.udaysaikumar.clgattendance.RetrofitPack.RetrofitOPTServer;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;

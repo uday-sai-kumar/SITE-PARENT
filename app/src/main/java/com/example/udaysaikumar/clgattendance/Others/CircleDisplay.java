@@ -1,5 +1,5 @@
 
-package com.example.udaysaikumar.clgattendance.Fragments;
+package com.example.udaysaikumar.clgattendance.Others;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;

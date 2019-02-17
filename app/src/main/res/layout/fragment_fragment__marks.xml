@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#eceff1"
     tools:context="com.example.udaysaikumar.clgattendance.Fragments.Fragment_Marks"
     >
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/myAppBar"
         android:layout_width="match_parent"
         android:fitsSystemWindows="true"
-        android:background="#ffffff"
+        android:background="#eceff1"
         android:layout_height="100dp"
         >
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -25,8 +26,7 @@
                 android:layout_width="match_parent"
                 style="@style/Widget.MaterialComponents.CardView"
                 android:layout_margin="3dp"
-                app:strokeColor="#ffebee"
-                app:strokeWidth="1dp"
+                app:strokeWidth="@dimen/cardStrokeWidth"
                 android:padding="1dp"
                 app:cardCornerRadius="8dp"
                 app:layout_collapseMode="parallax"
@@ -34,6 +34,7 @@
                 android:clickable="true"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:focusable="true"
+                app:strokeColor="@color/cardStrokeColor"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,7 +66,7 @@
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/fragattend"
-        android:background="#FFFFFF"
+        android:background="@color/blueGrey"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:fitsSystemWindows="true"
@@ -84,26 +85,27 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/blueGrey"
+            android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:focusable="true"
+                app:strokeWidth="@dimen/cardStrokeWidth"
                 app:cardCornerRadius="8dp"
+                android:background="@color/blueGrey"
+                app:strokeColor="@color/cardStrokeColor"
                 android:layout_margin="3dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/card_custom"
-                    android:orientation="vertical">
-
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/viewPager"
                         android:layout_width="match_parent"
+                        android:background="@color/blueGrey"
+                        android:layout_margin="7dp"
                         android:layout_height="wrap_content"
                         >
 
@@ -120,14 +122,24 @@
                             app:tabSelectedTextColor="@color/colorPrimary"
                             app:tabTextColor="#000000" />
                     </androidx.viewpager.widget.ViewPager>
-
-                    <TableLayout
-                        android:id="@+id/finalmarks"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                app:strokeWidth="1dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:focusable="true"
+                android:clickable="true"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="3dp">
+            <TableLayout
+                android:id="@+id/finalmarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eceff1"
+                android:layout_marginTop="3dp" />
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

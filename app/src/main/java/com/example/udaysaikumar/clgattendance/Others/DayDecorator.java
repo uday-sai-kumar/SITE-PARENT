@@ -1,4 +1,4 @@
-package com.example.udaysaikumar.clgattendance.Fragments;
+package com.example.udaysaikumar.clgattendance.Others;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,7 +16,7 @@ public class DayDecorator implements DayViewDecorator{
     Context c;
   private   CalendarDay calendarDay;
     public DayDecorator(Context c,CalendarDay calendarDay) {
-        drawable=ContextCompat.getDrawable(c,R.drawable.current_day_drawable);
+        drawable=ContextCompat.getDrawable(c,R.drawable.mcv_round_cirlce);
         this.c=c;
         this.calendarDay=calendarDay;
     }
@@ -28,9 +28,11 @@ public class DayDecorator implements DayViewDecorator{
 
     @Override
     public void decorate(DayViewFacade view) {
-        //view.addSpan(drawable);
+        //view.setSelectionDrawable(drawable);
+
+      //  view.addSpan(drawable);
         view.setBackgroundDrawable(drawable);
-       // view.addSpan(new ForegroundColorSpan(Color.WHITE));
-        view.addSpan(new DotSpan(5,Color.WHITE));
+       //view.addSpan(new ForegroundColorSpan(Color.WHITE));
+      //  view.addSpan(new DotSpan(5,Color.GREEN));
     }
 }

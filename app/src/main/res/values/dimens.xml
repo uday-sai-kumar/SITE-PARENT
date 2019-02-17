@@ -14,4 +14,7 @@
     <!--TODO:button_round-->
     <dimen name="buttonround">7dp</dimen>
     <dimen name="share">30dp</dimen>
+
+    <!--TODO:cardStrokeWidth-->
+    <dimen name="cardStrokeWidth">0.8dp</dimen>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SITE PARENT</string>
+    <string name="app_name">SITE Parent</string>
     <string name="hint">Regno</string>
     <string name="login">Login</string>
     <dimen name="button_round">15dp</dimen>
@@ -41,6 +41,16 @@
     <!--Attendance Strings-->
 <string name="APIKEY">AKPhEaFsE8c1f98hiX1VXa0dj5_7KFq0</string>
     <string name="attendanceCollection">ATTENDANCE</string>
+    <string name="suggestion">Suggestion</string>
+    <string name="write_suggestion_here">write suggestion here</string>
+    <string name="rating">Rating</string>
+    <string name="found_any_bugs">Found any bugs</string>
+    <string name="write_bug_here">write bug here</string>
+    <string name="submit">Submit</string>
+    <string name="bug_report_via_whatsapp">Bug Report via WhatsApp</string>
+    <string name="bug_report_via_mail">Bug Report via Mail</string>
+    <string name="share">Share</string>
 
-
+<string name="feedbackCollection">FEEDBACK</string>
+    <string name="notAvailable">NA</string>
 </resources>

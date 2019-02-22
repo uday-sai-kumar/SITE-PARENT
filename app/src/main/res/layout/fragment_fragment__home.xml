@@ -37,15 +37,26 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/card_custom"
                     android:orientation="horizontal">
-
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <ProgressBar
+        android:id="@+id/myPhotoProgress"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:visibility="visible"
+        android:layout_gravity="center_horizontal|center_vertical"
+        />
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_photo"
+                        android:visibility="invisible"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_margin="3dp"
                         android:scaleType="centerCrop"
                         />
-
+</FrameLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp">
@@ -68,6 +79,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/open_sans"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:ellipsize="end"
                                 android:gravity="center"
                                 android:textSize="15sp" />
 
@@ -77,6 +91,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:ellipsize="end"
+                                android:textSize="15sp"
                                 android:textAppearance="@style/TextAppearance.AppCompat" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -137,7 +155,8 @@
                             android:layout_width="match_parent"
                             android:id="@+id/basic"
                             android:layout_height="wrap_content"
-                            android:stretchColumns="*">
+                            android:stretchColumns="*"
+                            android:shrinkColumns="*">
                         </TableLayout>
                     </com.google.android.material.card.MaterialCardView>
                     <com.google.android.material.card.MaterialCardView
@@ -154,8 +173,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/btech"
-                            android:background="#eceff1"
-                            android:stretchColumns="*">
+                            android:background="#FFFFFF"
+                            android:stretchColumns="*"
+                            android:shrinkColumns="*">
                         </TableLayout>
                     </com.google.android.material.card.MaterialCardView>
                     <com.google.android.material.card.MaterialCardView
@@ -180,13 +200,15 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/call_logo"
-                                    android:layout_margin="15dp"/>
+                                    android:layout_margin="8dp"/>
 
                                 <TextView
                                     android:layout_width="match_parent"
+                                    android:id="@+id/phoneNumber"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="15dp"
+                                    android:layout_margin="8dp"
                                     android:fontFamily="@font/open_sans"
+                                    android:textSize="15sp"
                                     android:text="XXXXXXXXXX"
                                     android:textColor="#000000"/>
                             </LinearLayout>
@@ -214,13 +236,15 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/location_logo"
-                                    android:layout_margin="15dp"/>
+                                    android:layout_margin="8dp"/>
 
                                 <TextView
+                                    android:id="@+id/address"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="15dp"
+                                    android:layout_margin="8dp"
                                     android:fontFamily="@font/open_sans"
+                                    android:textSize="15sp"
                                     android:text="xxxxxxxxx\nxxxxxxxxx\nxxxxxxxxx\nxxxxxxxxx"
                                     android:textColor="#000000"/>
                             </LinearLayout>

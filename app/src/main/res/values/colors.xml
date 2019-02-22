@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#ff1744</color>
 
-    <color name="colorPrimaryDark">#bdbdbd</color>
+    <color name="colorPrimaryDark">#c4001d</color>
     <color name="colorAccent">#ff1744</color>
     <color name="bagroundText">#f2ff5252</color>
     <color name="t11">#f06292</color>
@@ -24,5 +24,11 @@
     <color name="cardStrokeColor">#ff5252</color>
     
     <color name="blueGrey">#eceff1</color>
+    <color name="tableMarginColor">#cfd8dc</color>
+    <color name="drawableStrokeColorAll">#0091ea</color>
+    <color name="drawableStrokeColorCurrent">#00b0ff</color>
+    <color name="drawableStrokeColorFull">#00b8d4</color>
+    <color name="drawableStrokeColorSemi">#00c853</color>
+    <color name="drawableStrokeColorSunday">#607d8b</color>
 
 </resources>

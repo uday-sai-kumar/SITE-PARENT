@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:fitsSystemWindows="true"
-    android:isScrollContainer="false"
+    android:isScrollContainer="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.udaysaikumar.clgattendance.Fragments.FragmentSem_11">
 
@@ -39,16 +39,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/tables11"
-    android:background="#eceff1"
-    android:stretchColumns="*">
+    android:background="@color/tableMarginColor"
+    android:stretchColumns="*"
+    android:shrinkColumns="*">
     <TableRow android:layout_marginBottom="1dp">
         <TextView
             android:background="@android:color/white"
             android:id="@+id/subject"
             android:fontFamily="@font/open_sans"
             android:textColor="@color/t11"
-            android:gravity="center_vertical|center"
-            android:textSize="21sp" />
+            android:gravity="start|center_horizontal"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="18sp"
+            android:ellipsize="end"
+            />
 
         <TextView
             android:background="@android:color/white"
@@ -56,7 +61,10 @@
             android:fontFamily="@font/open_sans"
             android:textColor="@color/t11"
             android:gravity="center_vertical|center"
-            android:textSize="21sp" />
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
         <TextView
             android:background="@android:color/white"
@@ -64,7 +72,10 @@
             android:fontFamily="@font/open_sans"
             android:textColor="@color/t11"
             android:gravity="center_vertical|center"
-            android:textSize="21sp" />
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
         <TextView
             android:background="@android:color/white"
@@ -72,7 +83,10 @@
             android:fontFamily="@font/open_sans"
             android:textColor="@color/t11"
             android:gravity="center_vertical|center"
-            android:textSize="21sp" />
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"/>
     </TableRow>
 
 </TableLayout>
@@ -81,7 +95,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.CardView"
-            android:layout_margin="2dp"
+            android:layout_margin="@dimen/cardMargin"
             android:padding="1dp"
             app:cardCornerRadius="8dp"
             android:foreground="?android:attr/selectableItemBackground"
@@ -97,7 +111,7 @@
             android:id="@+id/tablesfinal"
             android:paddingStart="3dp"
             android:paddingEnd="3dp"
-            android:background="#eceff1"
+            android:background="@color/tableMarginColor"
             android:stretchColumns="*">
         </TableLayout>
         </com.google.android.material.card.MaterialCardView>

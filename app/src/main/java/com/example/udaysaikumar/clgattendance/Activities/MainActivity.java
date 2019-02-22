@@ -7,14 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.example.udaysaikumar.clgattendance.Login.PhoneData;
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroServer;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,50 +24,48 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     RetroGet retroGet;
-    EditText phone;
+    TextInputEditText phone;
     String phoneNo;
     List<PhoneData> list;
     Button login;
-    String API_KEY="AKPhEaFsE8c1f98hiX1VXa0dj5_7KFq0";
+    String API_KEY;
     ProgressBar progressBar;
     String COLLECTION="PHONENUMBERS";
-    void enableView(boolean b)
-    {
-        if(b)
-        {
-            phone.setEnabled(true);
-            login.setEnabled(true);
-            progressBar.setVisibility(View.INVISIBLE);
-
-        }
-        else
-        {
-            phone.setEnabled(false);
-            login.setEnabled(false);
-            progressBar.setVisibility(View.VISIBLE);
-        }
-    }
+    boolean aBoolean=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        API_KEY=getResources().getString(R.string.APIKEY);
         phone=findViewById(R.id.pNo);
         progressBar=findViewById(R.id.progressBar);
         login=findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                if (phone.getText().toString().equals("")|| phone.getText().length()<=9) {
-                    Toast.makeText(MainActivity.this,"please enter valid number",Toast.LENGTH_SHORT).show();
-                }
-                else{
+                try {
 
-                   enableView(false);
+
+                    if (phone.getText().toString().equals("") || phone.getText().length() <= 9) {
+                        phone.setError("enter valid number");
+                        aBoolean = false;
+                        // Toast.makeText(MainActivity.this,"please enter valid number",Toast.LENGTH_SHORT).show();
+                    } else {
+                        aBoolean = true;
+                    }
+                }catch (Exception e)
+                {
+                    aBoolean=false;
+                    phone.setError("enter valid number");
+                }
+                if(aBoolean){
+showProgress();
+                   //enableView(false);
                     phoneNo = phone.getText().toString();
 
                     //final String p="{\"parentmobile\":{$eq:\""+phoneNo+"\"}}";
-                   final String p="{\"studentmobile\":{$eq:\""+phoneNo+"\"}}";
+                   final String p="{\"studentmobile\":{$eq:"+Long.parseLong(phoneNo)+"}}";
                     retroGet = RetroServer.getRetrofit().create(RetroGet.class);
                     Call<List<PhoneData>> dataCall = retroGet.getPhoneData(COLLECTION,API_KEY,p);
                     dataCall.enqueue(new Callback<List<PhoneData>>() {
@@ -79,23 +76,23 @@ public class MainActivity extends AppCompatActivity {
                                 System.out.println("ourresponse"+list);
                                 try{
                                 if (!list.isEmpty()) {
-                                    if (phoneNo.equals(list.get(0).getStudentmobile())) {
+                                    if (Long.parseLong(phoneNo)==list.get(0).getStudentmobile() || Long.parseLong(phoneNo)==list.get(0).getParentmobile()) {
+                                        hideProgress();
                                         SharedPreferences s = getSharedPreferences("MyLogin", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = s.edit();
                                         editor.putString("phone", phoneNo);
                                         editor.putString("username",list.get(0).getRegno());
                                         editor.apply();
-                                        progressBar.setVisibility(View.INVISIBLE);
+                                        //progressBar.setVisibility(View.INVISIBLE);
                                         Intent i = new Intent(MainActivity.this, OTPActivity.class);
-                                     //   startActivity(i,ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
                                          startActivity(i);
-
                                         finish();
                                     }
                                     else {
-                                        System.out.println("ourresponse 1"+list);
+                                       // System.out.println("ourresponse 1"+list);
 
                                        fun();
+
                                     }
                                 }
                                 else {
@@ -106,17 +103,17 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                             catch (Exception e){
-
+hideProgress();
                             }
 
                             }
 
-                           enableView(true);
+                         //  enableView(true);
 
                         }
                         @Override
                         public void onFailure(@NonNull Call<List<PhoneData>> call, @NonNull Throwable t) {
-                          enableView(true);
+                          hideProgress();
                             Toast.makeText(MainActivity.this, "Failure, please connect to active network", Toast.LENGTH_LONG).show();
 
                         }
@@ -130,8 +127,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
     void fun(){
-        enableView(true);
-        Toast.makeText(MainActivity.this, "number not registered", Toast.LENGTH_LONG).show();
+       hideProgress();
+        Toast.makeText(MainActivity.this, "number not updated in database try with parent number", Toast.LENGTH_LONG).show();
     }
-
+public void showProgress()
+{
+    login.setVisibility(View.INVISIBLE);
+    progressBar.setVisibility(View.VISIBLE);
+}
+public void hideProgress()
+{
+    login.setVisibility(View.VISIBLE);
+    progressBar.setVisibility(View.INVISIBLE);
+}
 }

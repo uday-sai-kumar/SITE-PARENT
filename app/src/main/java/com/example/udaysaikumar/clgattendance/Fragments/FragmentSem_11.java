@@ -8,6 +8,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.res.ResourcesCompat;
+
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +26,8 @@ import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,14 +38,15 @@ import static android.content.Context.MODE_PRIVATE;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentSem_11 extends Fragment {
-
     RetroGet retroGet;
-    String API_KEY = "AKPhEaFsE8c1f98hiX1VXa0dj5_7KFq0";
-    TableLayout tableLayout, headTable;
-    TableLayout tableLayout1;
-    JSONObject jj;
-    List<String> st = new ArrayList<>();
-    TextView subject, internals, externals, total;
+    private String API_KEY;
+    private TableLayout tableLayout, headTable;
+    private TableLayout tableLayout1;
+    private JSONObject jj;
+    private List<String> st = new ArrayList<>();
+    private TextView subject, internals, externals, total;
+    private String TAG="FragmentSem_11_Log";
+    private DecimalFormat df;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -53,10 +59,10 @@ public class FragmentSem_11 extends Fragment {
         internals = v.findViewById(R.id.internals);
         externals = v.findViewById(R.id.externals);
         total = v.findViewById(R.id.total);
-        SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("MyLogin", MODE_PRIVATE);
-        final String UNAME = sharedPreferences.getString("username", "");
-        String PASS = sharedPreferences.getString("password", "");
-        String MARKS = sharedPreferences.getString("marks", "");
+        df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        API_KEY = getResources().getString(R.string.APIKEY);
+      /*  String UNAME = LoginStaticData.getRegno();
         if (Integer.parseInt(UNAME.subSequence(0, 2).toString()) >= 15) {
 
             subject.setText(R.string.subject);
@@ -72,8 +78,27 @@ public class FragmentSem_11 extends Fragment {
             total.setText(R.string.totalmarks1);
 
             //tableLayout.addView(tr, new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
+        }*/
         String str = getArguments() != null ? getArguments().getString("data") : null;
+        try{
+            if (str.contains("points")) {
+                subject.setText(R.string.subject);
+                internals.setText(R.string.internals1);
+                externals.setText(R.string.externals1);
+
+                total.setText(R.string.totalmarks1);
+            }else
+            {
+                subject.setText(R.string.subject);
+                internals.setText(R.string.internals);
+                externals.setText(R.string.externals);
+                total.setText(R.string.totalmarks);
+            }
+        }catch(Exception e)
+        {
+
+        }
+     //   Log.d(TAG,str);
         try {
             JSONObject jj=new JSONObject(str);
             Iterator<String> headers = jj.keys();
@@ -98,42 +123,45 @@ public class FragmentSem_11 extends Fragment {
                 Typeface typeface = ResourcesCompat.getFont(v.getContext(), R.font.open_sans);
 
                 TableRow tr = new TableRow(v.getContext());
-               TableLayout.LayoutParams layoutParams=new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
-               layoutParams.setMargins(0,0,0,1);
+                TableLayout.LayoutParams layoutParams=new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0,0,0,1);
                 tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
                 t.setText(key);
                 t.setTypeface(typeface);
                 t.setTextColor(Color.BLACK);
-                t.setGravity(Gravity.CENTER);
+                t.setGravity(Gravity.START);
+                t.setMaxLines(1);
+                t.setSingleLine();
+                t.setEllipsize(TextUtils.TruncateAt.END);
                 t.setBackgroundColor(Color.WHITE);
                 //t.setBackgroundResource(R.drawable.table_custom_text);
-                t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t);
                 TextView t1 = new TextView(v.getContext());
-              //  t1.setBackgroundResource(R.drawable.table_custom_text);
+                //  t1.setBackgroundResource(R.drawable.table_custom_text);
                 t1.setText(jj1.get(key).toString());
                 t1.setTypeface(typeface);
                 t1.setBackgroundColor(Color.WHITE);
                 t1.setGravity(Gravity.CENTER);
-                t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t1);
                 TextView t2 = new TextView(v.getContext());
                 t2.setText(jj2.get(key1).toString());
                 t2.setGravity(Gravity.CENTER);
                 t2.setBackgroundColor(Color.WHITE);
-              //  t2.setBackgroundResource(R.drawable.table_custom_text);
+                //  t2.setBackgroundResource(R.drawable.table_custom_text);
                 t2.setTypeface(typeface);
-                t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t2);
                 TextView t3 = new TextView(v.getContext());
                 t3.setText(jj3.get(key2).toString());
                 t3.setTypeface(typeface);
                 t3.setBackgroundColor(Color.WHITE);
                 t3.setGravity(Gravity.CENTER);
-              //  t3.setBackgroundResource(R.drawable.table_custom_text);
-                t3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                //  t3.setBackgroundResource(R.drawable.table_custom_text);
+                t3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t3);
                 tableLayout.addView(tr, layoutParams);
             }
@@ -143,7 +171,7 @@ public class FragmentSem_11 extends Fragment {
                 TableRow tr = new TableRow(v.getContext());
                 TableRow.LayoutParams layoutParams=new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0,0,0,1);
-            //    tr.setLayoutParams(layoutParams);
+                //    tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
                 t.setText(key);
@@ -152,25 +180,27 @@ public class FragmentSem_11 extends Fragment {
                 t.setBackgroundColor(Color.WHITE);
                 // t.setBackgroundResource(R.drawable.table_custom_text_conclusion);
                 t.setTypeface(typeface);
-                t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t,layoutParams);
                 TextView t1 = new TextView(v.getContext());
                 //t1.setBackgroundResource(R.drawable.table_custom_text_conclusion);
-                t1.setText(jj4.get(key).toString());
+                String rounding=jj4.get(key).toString();
+                Double myDouvle=Double.valueOf(rounding);
+                String newValue= df.format(myDouvle);
+                t1.setText(newValue);
                 t1.setGravity(Gravity.CENTER);
                 t1.setBackgroundColor(Color.WHITE);
                 t1.setTypeface(typeface);
-                t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t1,layoutParams);
                 tableLayout1.addView(tr, layoutParams);
 
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
         return v;
     }
-
 }

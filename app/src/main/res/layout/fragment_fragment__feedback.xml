@@ -39,7 +39,7 @@ android:fitsSystemWindows="true"
                         android:layout_height="wrap_content"
                         android:layout_margin="7dp"
                         app:cardCornerRadius="8dp"
-                        android:foreground="?android:attr/selectableItemBackground"
+                        android:foreground="@drawable/selectableitembackground"
                         android:clickable="true"
                         app:strokeColor="@color/cardStrokeColor"
                         app:strokeWidth="@dimen/cardStrokeWidth"
@@ -56,15 +56,16 @@ android:fitsSystemWindows="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
-                                android:text="Suggestion"
+                                android:text="@string/suggestion"
                                 android:textColor="#212121"
                                 android:textSize="23sp" />
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/mySuggestion"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
-                                android:hint="write suggestion here"
+                                android:hint="@string/write_suggestion_here"
                                 android:inputType="textMultiLine" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -90,11 +91,12 @@ android:fitsSystemWindows="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
-                                android:text="Rating"
+                                android:text="@string/rating"
                                 android:textColor="#212121"
                                 android:textSize="20sp" />
 
                             <RatingBar
+                                android:id="@+id/myRating"
                                 style="@style/Widget.AppCompat.RatingBar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -124,7 +126,7 @@ android:fitsSystemWindows="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
-                                android:text="Found any bugs"
+                                android:text="@string/found_any_bugs"
                                 android:textColor="#212121"
                                 android:textSize="20sp" />
 
@@ -132,16 +134,28 @@ android:fitsSystemWindows="true"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
-                                android:hint="write bug here"
+                                android:id="@+id/myBugs"
+                                android:hint="@string/write_bug_here"
                                 android:inputType="textMultiLine" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ProgressBar
+        android:id="@+id/myProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="invisible"/>
                     <com.google.android.material.button.MaterialButton
+                        android:visibility="visible"
+                        android:id="@+id/submit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Submit"
+                        android:text="@string/submit"
                         android:textAllCaps="false" />
+</FrameLayout>
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
@@ -164,7 +178,7 @@ android:fitsSystemWindows="true"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/open_sans"
-            android:text="Bug Report via WhatsApp"
+            android:text="@string/bug_report_via_whatsapp"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textStyle="bold" />
 
@@ -190,7 +204,7 @@ android:fitsSystemWindows="true"
             android:layout_gravity="center"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/open_sans"
-            android:text="Bug Report via Mail"
+            android:text="@string/bug_report_via_mail"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textStyle="bold" />
 
@@ -215,7 +229,7 @@ android:fitsSystemWindows="true"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/open_sans"
-            android:text="Share"
+            android:text="@string/share"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textStyle="bold" />
 

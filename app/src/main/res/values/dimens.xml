@@ -16,5 +16,10 @@
     <dimen name="share">30dp</dimen>
 
     <!--TODO:cardStrokeWidth-->
-    <dimen name="cardStrokeWidth">0.8dp</dimen>
+    <dimen name="cardStrokeWidth">0.6dp</dimen>
+    <dimen name="cardMargin">2dp</dimen>
+
+    <dimen name="cardMarginMain">4dp</dimen>
+
+    <dimen name="drawableStrokeWidth">2.5dp</dimen>
 </resources>

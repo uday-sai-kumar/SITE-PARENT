@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.res.ResourcesCompat;
+
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -39,7 +41,6 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.udaysaikumar.clgattendance.Interfaces.ConnectionInterface;
 import com.example.udaysaikumar.clgattendance.Interfaces.ImageInterface;
-import com.example.udaysaikumar.clgattendance.Login.LoginData;
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetrofitMarksServer;
@@ -48,9 +49,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -70,7 +69,7 @@ public class Fragment_Home extends Fragment {
 
 
 private CircleImageView profile_photo;
-private ProgressBar homeProgress;
+private ProgressBar homeProgress,myPhotoProgress;
 private TextView appusername,regno;
 private TableLayout basic,btech;
 private LinearLayout linearProgress;
@@ -84,25 +83,36 @@ private Bitmap bitmap;
 
  private String API_KEY;
  private String TAG="Fragment_Home_Log";
+ private String PROFILE="PROFILE";
+ private TextView phoneNumber,address;
+ private String notAvailable;
+ private String YEAR="Year";
+ private String sems;
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          v=inflater.inflate(R.layout.fragment_fragment__home, container, false);
         profile_photo=v.findViewById(R.id.profile_photo);
+        myPhotoProgress=v.findViewById(R.id.myPhotoProgress);
         homeProgress=v.findViewById(R.id.homeprogress);
         linearProgress=v.findViewById(R.id.linearprogress);
         appusername=v.findViewById(R.id.appusername);
         regno=v.findViewById(R.id.appregno);
         basic=v.findViewById(R.id.basic);
         btech=v.findViewById(R.id.btech);
+        phoneNumber=v.findViewById(R.id.phoneNumber);
+        address=v.findViewById(R.id.address);
 API_KEY=getResources().getString(R.string.APIKEY);
         RetroGet retroGet;
+        notAvailable=getResources().getString(R.string.notAvailable);
         mStorageRef = FirebaseStorage.getInstance().getReference();
+      //  Log.d(TAG,mStorageRef.toString());
         SharedPreferences sharedPreferences=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
          UNAME=sharedPreferences.getString("username","");
-        String PROFILE=sharedPreferences.getString("profile","");
-        LoginData data=new LoginData();
+     //   LoginData data=new LoginData();
+        showProgress();
+        showPhotoProgress();
         profile();
         profile_photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +133,7 @@ API_KEY=getResources().getString(R.string.APIKEY);
                             i.setType("image/*");
                             startActivityForResult(i, REQUEST_CODE);
 
-                        
+
 
                 }
             }
@@ -145,6 +155,16 @@ API_KEY=getResources().getString(R.string.APIKEY);
                        JSONObject job = j.getJSONObject(0);
                        JSONObject jj = job.getJSONObject("SI");
                        JSONObject jj1 = job.getJSONObject("BTECH");
+                       String myPhone=job.getString("Mobile");
+                       String myAddress=job.getString("Address");
+                       if(!myPhone.equals(""))
+                       {
+                        phoneNumber.setText(myPhone);
+                       }else phoneNumber.setText(notAvailable);
+                       if(!myAddress.equals(""))
+                       {
+                           address.setText(myAddress);
+                       }else address.setText(notAvailable);
                        Iterator<String> it = jj.keys();
                        Iterator<String> it1 = jj1.keys();
                        appusername.setText(job.get("Name").toString());
@@ -180,23 +200,29 @@ API_KEY=getResources().getString(R.string.APIKEY);
                        TableRow tableRow1 = new TableRow(v.getContext());
                        tableRow1.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                        TextView ttt = new TextView(v.getContext());
-                       ttt.setText("Year");
+                       ttt.setText(YEAR);
                        ttt.setGravity(Gravity.CENTER);
                        ttt.setTypeface(typeface);
+                       ttt.setSingleLine();
+                       ttt.setMaxLines(1);
+                       ttt.setEllipsize(TextUtils.TruncateAt.END);
                        ttt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
+                       ttt.setBackgroundColor(getResources().getColor(R.color.blueGrey));
                        tableRow1.addView(ttt);
                        TextView tt = new TextView(v.getContext());
                        tt.setText(getResources().getText(R.string.sem1));
                        tt.setGravity(Gravity.CENTER);
                        tt.setTypeface(typeface);
-                      // tt.setBackgroundColor(Color.parseColor("#ffcdd2"));
+                       tt.setBackgroundColor(getResources().getColor(R.color.blueGrey));
+                       // tt.setBackgroundColor(Color.parseColor("#ffcdd2"));
                        tt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                        tableRow1.addView(tt);
                        TextView tt1 = new TextView(v.getContext());
                        tt1.setText(getResources().getText(R.string.sem2));
                        tt1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                        tt1.setTypeface(typeface);
-                      // tt1.setBackgroundColor(Color.parseColor("#ffcdd2"));
+                       tt1.setBackgroundColor(getResources().getColor(R.color.blueGrey));
+                       // tt1.setBackgroundColor(Color.parseColor("#ffcdd2"));
                        tt1.setGravity(Gravity.CENTER);
                        tableRow1.addView(tt1);
                        btech.addView(tableRow1);
@@ -207,7 +233,11 @@ API_KEY=getResources().getString(R.string.APIKEY);
                            tableRow.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                            TextView t1 = new TextView(v.getContext());
                            t1.setTypeface(typeface);
-                           t1.setGravity(Gravity.CENTER);
+                           t1.setGravity(Gravity.START|Gravity.CENTER_HORIZONTAL);
+                           t1.setSingleLine();
+                           t1.setMaxLines(1);
+                           t1.setEllipsize(TextUtils.TruncateAt.END);
+                           t1.setPadding(2,0,0,0);
                            t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                            t1.setTextColor(Color.WHITE);
                            t1.setText(key);
@@ -218,7 +248,7 @@ API_KEY=getResources().getString(R.string.APIKEY);
                            Iterator<String> semit = sem.keys();
                            while (semit.hasNext()) {
 
-                                   String sems = semit.next();
+                                    sems = semit.next();
                                    TextView t2 = new TextView(v.getContext());
                                    t2.setTypeface(typeface);
                                    t2.setGravity(Gravity.CENTER);
@@ -232,19 +262,21 @@ API_KEY=getResources().getString(R.string.APIKEY);
                            btech.addView(tableRow);
 
                        }
-                       linearProgress.setVisibility(View.VISIBLE);
+                       FinalPercentage.setFinalPercentage(sems);
+                      // linearProgress.setVisibility(View.VISIBLE);
 
-                   } catch (JSONException e) {
+                   } catch (Exception e) {
+                       hideProgress();
                        e.printStackTrace();
                    }
 
                }
+               hideProgress();
            }
 
                @Override
                public void onFailure (@NonNull Call < String > call, @NonNull Throwable t){
-               linearProgress.setVisibility(View.INVISIBLE);
-               homeProgress.setVisibility(View.INVISIBLE);
+               hideProgress();
                connectionInterface= (ConnectionInterface) getActivity();
                try {
                    connectionInterface.reload();
@@ -283,6 +315,26 @@ API_KEY=getResources().getString(R.string.APIKEY);
 
         return v;
     }
+    public void showPhotoProgress()
+    {
+       myPhotoProgress.setVisibility(View.VISIBLE);
+       profile_photo.setVisibility(View.INVISIBLE);
+    }
+    public void hidePhotoProgress()
+    {
+        myPhotoProgress.setVisibility(View.INVISIBLE);
+        profile_photo.setVisibility(View.VISIBLE);
+    }
+    public void showProgress()
+    {
+       homeProgress.setVisibility(View.VISIBLE);
+       linearProgress.setVisibility(View.INVISIBLE);
+    }
+    public void hideProgress()
+    {
+        homeProgress.setVisibility(View.INVISIBLE);
+        linearProgress.setVisibility(View.VISIBLE);
+    }
     public void profile()
     {
         childRef=mStorageRef.child("Photos/"+UNAME+".JPG");
@@ -291,6 +343,7 @@ API_KEY=getResources().getString(R.string.APIKEY);
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                 //imageProgress.setVisibility(View.INVISIBLE);
+                hidePhotoProgress();
                 return false;
             }
 
@@ -302,6 +355,7 @@ API_KEY=getResources().getString(R.string.APIKEY);
                 ImageInterface imageInterface= (ImageInterface) getActivity();
                 imageInterface.setImage(resource);
                 //imageProgress.setVisibility(View.INVISIBLE);
+                hidePhotoProgress();
                 return false;
             }
         }).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).submit();
@@ -311,6 +365,7 @@ API_KEY=getResources().getString(R.string.APIKEY);
         //super method removed
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CODE) {
+                showPhotoProgress();
                 final Uri returnUri = data.getData();
                 System.out.println("moreuri"+returnUri);
                 try {
@@ -326,6 +381,7 @@ API_KEY=getResources().getString(R.string.APIKEY);
                                         GlideApp.with(v.getContext()).load(returnUri).apply(new RequestOptions().transform(new RoundedCorners(40))).into(profile_photo);
                                       //  bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
                                         //profile_photo.setImageBitmap(bitmapImage);
+                                        hidePhotoProgress();
 
                                     }finally {
 
@@ -334,11 +390,14 @@ API_KEY=getResources().getString(R.string.APIKEY);
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG,e.toString());
+                            hidePhotoProgress();
                             Toast.makeText(v.getContext(),"failed to upload",Toast.LENGTH_SHORT).show();
 
                         }
                     });
                 } catch (Exception e) {
+                    hidePhotoProgress();
                     e.printStackTrace();
                 }
               //  profile();

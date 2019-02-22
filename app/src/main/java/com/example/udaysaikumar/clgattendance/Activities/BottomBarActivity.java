@@ -219,7 +219,21 @@ checkNet();
 
     @Override
     public void reload() {
-        checkNet();
+         final Snackbar snackbar = Snackbar.make(relativeLayout, "low internet connection", Snackbar.LENGTH_INDEFINITE);
+         snackbar.setAction("retry", new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 checkNet();
+                 snackbar.dismiss();
+             }
+         }).setBehavior(new BaseTransientBottomBar.Behavior(){
+             @Override
+           public boolean canSwipeDismissView(View view) {
+                return false;
+            }
+         });
+
+        snackbar.show();
     }
 
     @Override

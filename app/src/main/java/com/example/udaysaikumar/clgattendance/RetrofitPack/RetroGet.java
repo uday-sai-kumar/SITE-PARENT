@@ -6,7 +6,11 @@ import com.example.udaysaikumar.clgattendance.Login.UserDetails;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -38,5 +42,6 @@ public interface RetroGet {
     Call<String> getOTP(@Query("username") String un,@Query("password") String pass,@Query("from") String from,@Query("to")String to,@Query("msg") String msg,@Query("type") String type);
     @GET("list-time-zone?key=A16EM4FQ8A5H&format=json&country=IN")
     Call<String> getTimeStamp();
-
+    @POST("collections/{coll}")
+    Call<String> sendFeedback(@Header("Content-Type") String header, @Body String body, @Path("coll")String coll, @Query("apiKey") String key);
 }

@@ -8,7 +8,7 @@
         android:id="@+id/myAppBar"
         android:layout_width="match_parent"
         android:fitsSystemWindows="true"
-        android:background="#eceff1"
+        android:background="@color/blueGrey"
         android:layout_height="100dp"
         >
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -105,35 +105,45 @@
 
 
     <!-- TODO: Update blank fragment layout -->
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:id="@+id/myFrame"
+    android:layout_height="wrap_content">
+    <ProgressBar
+        android:id="@+id/attendanceProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="visible"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:visibility="visible"
-    android:id="@+id/attendacelayout"
+    android:visibility="invisible"
+    android:id="@+id/attendaceLayout"
     android:background="@color/blueGrey"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_margin="3dp"
-        app:strokeColor="@color/cardStrokeColor"
-        app:strokeWidth="1dp"
-        android:padding="1dp"
-        app:cardCornerRadius="8dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_height="wrap_content">
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:mcv_arrowColor="@color/colorPrimary"
-        app:mcv_selectionColor="@color/colorPrimary"
-        android:id="@+id/calenderView">
-    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+        android:layout_margin="3dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="1dp"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/cardStrokeColor"
+        app:strokeWidth="1dp">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calenderView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:mcv_arrowColor="@color/colorPrimary"
+            app:mcv_selectionColor="@color/colorPrimary" />
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -150,13 +160,14 @@
        android:id="@+id/tableAttendance"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:background="#eceff1"
+       android:background="@color/tableMarginColor"
        android:stretchColumns="*"
+       android:shrinkColumns="*"
        >
-
    </TableLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
+</FrameLayout>
 </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

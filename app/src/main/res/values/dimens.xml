@@ -22,4 +22,11 @@
     <dimen name="cardMarginMain">4dp</dimen>
 
     <dimen name="drawableStrokeWidth">2.5dp</dimen>
+
+    <dimen name="chipStrokeWidth">1dp</dimen>
+    <dimen name="cardCornerRadius">8dp</dimen>
+    <dimen name="textSize">16sp</dimen>
+    <dimen name="textSize1">17sp</dimen>
+    <dimen name="textSize2">18sp</dimen>
+
 </resources>

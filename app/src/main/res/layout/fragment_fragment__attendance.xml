@@ -1,8 +1,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#eceff1"
+    android:clickable="true"
+    android:focusable="true"
     android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/myAppBar"
@@ -16,19 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="#ffffff"
+            app:contentScrim="@color/contentScrim"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                style="@style/Widget.MaterialComponents.CardView"
+                style="@style/CardBaground"
                 android:layout_margin="3dp"
                 app:strokeColor="@color/cardStrokeColor"
                 app:strokeWidth="@dimen/cardStrokeWidth"
                 android:padding="1dp"
-                app:cardCornerRadius="8dp"
                 app:layout_collapseMode="parallax"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
@@ -45,8 +46,7 @@
                         android:id="@+id/myView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/open_sans"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        style="@style/TextViewTheme"
                         />
                     <SeekBar
                         android:id="@+id/seekBar"
@@ -94,80 +94,83 @@
     </com.google.android.material.appbar.AppBarLayout>
 <androidx.core.widget.NestedScrollView
     android:id="@+id/fragattend"
-    android:background="#FFFFFF"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:fitsSystemWindows="true"
     android:isScrollContainer="true"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:paddingBottom="100dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
     <!-- TODO: Update blank fragment layout -->
-<FrameLayout
-    android:layout_width="match_parent"
-    android:id="@+id/myFrame"
-    android:layout_height="wrap_content">
-    <ProgressBar
-        android:id="@+id/attendanceProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:visibility="visible"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="invisible"
-    android:id="@+id/attendaceLayout"
-    android:background="@color/blueGrey"
-    android:orientation="vertical"
-    >
-
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.MaterialComponents.CardView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="1dp"
-        app:cardCornerRadius="8dp"
-        app:strokeColor="@color/cardStrokeColor"
-        app:strokeWidth="1dp">
-
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:id="@+id/calenderView"
+        android:id="@+id/myFrame"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/attendanceProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="visible"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            app:mcv_arrowColor="@color/colorPrimary"
-            app:mcv_selectionColor="@color/colorPrimary" />
-    </com.google.android.material.card.MaterialCardView>
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:padding="1dp"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:focusable="true"
-        app:strokeWidth="1dp"
-        app:cardCornerRadius="8dp"
-        android:layout_margin="3dp"
-        app:strokeColor="@color/cardStrokeColor"
-        android:layout_height="wrap_content">
-   <TableLayout
-       android:id="@+id/tableAttendance"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:background="@color/tableMarginColor"
-       android:stretchColumns="*"
-       android:shrinkColumns="*"
-       >
-   </TableLayout>
+            android:visibility="invisible"
+            android:id="@+id/attendaceLayout"
+            android:background="@color/blueGrey"
+            android:orientation="vertical"
+            >
 
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
-</FrameLayout>
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.MaterialComponents.CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="1dp"
+                app:cardCornerRadius="8dp"
+                app:strokeColor="@color/cardStrokeColor"
+                app:strokeWidth="1dp">
+
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/calenderView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    app:mcv_arrowColor="@color/colorAccent"
+                    app:mcv_selectionColor="@color/colorAccent"
+                    app:mcv_headerTextAppearance="@style/HeaderTextAppearance"
+                    app:mcv_weekDayTextAppearance="@style/WeekTextAppearance"
+                    app:mcv_dateTextAppearance="@style/DateTextAppearance"/>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:padding="1dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:focusable="true"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="3dp"
+                app:strokeColor="@color/cardStrokeColor"
+                android:layout_height="wrap_content">
+                <TableLayout
+                    android:id="@+id/tableAttendance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:stretchColumns="*"
+                    android:shrinkColumns="*"
+                    >
+                </TableLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </FrameLayout>
 </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

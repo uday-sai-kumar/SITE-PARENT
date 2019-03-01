@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
 android:fitsSystemWindows="true"
+    android:clickable="true"
+    android:focusable="true"
     android:background="@color/blueGrey"
     tools:context="com.example.udaysaikumar.clgattendance.Fragments.Fragment_Feedback">
 
@@ -38,10 +40,10 @@ android:fitsSystemWindows="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="7dp"
-                        app:cardCornerRadius="8dp"
-                        android:foreground="@drawable/selectableitembackground"
-                        android:clickable="true"
+                        app:cardCornerRadius="@dimen/cardCornerRadius"
+                        style="@style/CardBaground"
                         app:strokeColor="@color/cardStrokeColor"
+                        android:clickable="true"
                         app:strokeWidth="@dimen/cardStrokeWidth"
                         android:focusable="true"
                       >
@@ -57,16 +59,22 @@ android:fitsSystemWindows="true"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
                                 android:text="@string/suggestion"
-                                android:textColor="#212121"
+                                style="@style/TextInputLayoutTheme"
                                 android:textSize="23sp" />
-
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/write_suggestion_here"
+                                style="@style/TextInputLayoutTheme"
+                                >
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/mySuggestion"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
-                                android:hint="@string/write_suggestion_here"
+                                style="@style/TextInputEditTextTheme"
                                 android:inputType="textMultiLine" />
+                            </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -77,9 +85,10 @@ android:fitsSystemWindows="true"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardCornerRadius="8dp"
-                        app:strokeColor="@color/cardStrokeColor"
+                        style="@style/CardBaground"
                         app:strokeWidth="@dimen/cardStrokeWidth"
-                        android:foreground="?android:attr/selectableItemBackground"
+                        app:strokeColor="@color/cardStrokeColor"
+
                         >
 
                         <LinearLayout
@@ -92,12 +101,12 @@ android:fitsSystemWindows="true"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
                                 android:text="@string/rating"
-                                android:textColor="#212121"
+                                style="@style/TextViewTheme"
                                 android:textSize="20sp" />
 
                             <RatingBar
                                 android:id="@+id/myRating"
-                                style="@style/Widget.AppCompat.RatingBar"
+                                style="@style/RatingBarTheme"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:isIndicator="false"
@@ -114,7 +123,7 @@ android:fitsSystemWindows="true"
                         app:cardCornerRadius="8dp"
                         app:strokeColor="@color/cardStrokeColor"
                         app:strokeWidth="@dimen/cardStrokeWidth"
-                        android:foreground="?android:attr/selectableItemBackground"
+                      style="@style/CardBaground"
                         >
 
                         <LinearLayout
@@ -127,16 +136,22 @@ android:fitsSystemWindows="true"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
                                 android:text="@string/found_any_bugs"
-                                android:textColor="#212121"
+                                style="@style/TextViewTheme"
                                 android:textSize="20sp" />
-
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/write_bug_here"
+                                style="@style/TextInputLayoutTheme"
+                                >
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                style="@style/TextInputEditTextTheme"
                                 android:layout_margin="8dp"
                                 android:id="@+id/myBugs"
-                                android:hint="@string/write_bug_here"
                                 android:inputType="textMultiLine" />
+                            </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 <FrameLayout
@@ -154,6 +169,7 @@ android:fitsSystemWindows="true"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/submit"
+                        style="@style/BrandButtonStyle"
                         android:textAllCaps="false" />
 </FrameLayout>
                 </LinearLayout>
@@ -162,10 +178,10 @@ android:fitsSystemWindows="true"
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
             app:strokeColor="@color/cardStrokeColor"
+            style="@style/CardBaground"
             app:strokeWidth="@dimen/cardStrokeWidth"
-            android:foreground="?android:attr/selectableItemBackground"
             android:layout_margin="7dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -186,9 +202,9 @@ android:fitsSystemWindows="true"
             android:id="@+id/bugwhatsapp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
             app:strokeWidth="@dimen/cardStrokeWidth"
-            android:foreground="?android:attr/selectableItemBackground"
+            style="@style/CardBaground"
             android:layout_margin="7dp">
 
             <ImageView
@@ -212,9 +228,9 @@ android:fitsSystemWindows="true"
             android:id="@+id/bugreport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
             app:strokeWidth="@dimen/cardStrokeWidth"
-            android:foreground="?android:attr/selectableItemBackground"
+            style="@style/CardBaground"
             android:layout_margin="7dp">
 
             <ImageView
@@ -243,9 +259,9 @@ android:fitsSystemWindows="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
                 app:strokeWidth="@dimen/cardStrokeWidth"
-                android:foreground="?android:attr/selectableItemBackground"
+                style="@style/CardBaground"
                 android:layout_margin="7dp">
 
                 <TableLayout

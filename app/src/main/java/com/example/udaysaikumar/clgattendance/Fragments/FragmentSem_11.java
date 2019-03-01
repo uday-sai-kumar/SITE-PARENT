@@ -1,16 +1,11 @@
 package com.example.udaysaikumar.clgattendance.Fragments;
-
-
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.res.ResourcesCompat;
-
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,21 +14,14 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -128,37 +116,41 @@ public class FragmentSem_11 extends Fragment {
                 tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
+                t.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 t.setText(key);
                 t.setTypeface(typeface);
-                t.setTextColor(Color.BLACK);
+               // t.setTextColor(Color.BLACK);
                 t.setGravity(Gravity.START);
                 t.setMaxLines(1);
-                t.setSingleLine();
-                t.setEllipsize(TextUtils.TruncateAt.END);
-                t.setBackgroundColor(Color.WHITE);
+               // t.setSingleLine();
+              //  t.setEllipsize(TextUtils.TruncateAt.END);
+              //  t.setBackgroundColor(Color.WHITE);
                 //t.setBackgroundResource(R.drawable.table_custom_text);
-                t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+              //  t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t);
                 TextView t1 = new TextView(v.getContext());
+                t1.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 //  t1.setBackgroundResource(R.drawable.table_custom_text);
                 t1.setText(jj1.get(key).toString());
                 t1.setTypeface(typeface);
-                t1.setBackgroundColor(Color.WHITE);
+              //  t1.setBackgroundColor(Color.WHITE);
                 t1.setGravity(Gravity.CENTER);
-                t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+               // t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t1);
                 TextView t2 = new TextView(v.getContext());
+                t2.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 t2.setText(jj2.get(key1).toString());
                 t2.setGravity(Gravity.CENTER);
-                t2.setBackgroundColor(Color.WHITE);
+              //  t2.setBackgroundColor(Color.WHITE);
                 //  t2.setBackgroundResource(R.drawable.table_custom_text);
                 t2.setTypeface(typeface);
-                t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+              //  t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t2);
                 TextView t3 = new TextView(v.getContext());
+                t3.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 t3.setText(jj3.get(key2).toString());
                 t3.setTypeface(typeface);
-                t3.setBackgroundColor(Color.WHITE);
+             //   t3.setBackgroundColor(Color.WHITE);
                 t3.setGravity(Gravity.CENTER);
                 //  t3.setBackgroundResource(R.drawable.table_custom_text);
                 t3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
@@ -174,24 +166,26 @@ public class FragmentSem_11 extends Fragment {
                 //    tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
+                t.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 t.setText(key);
                 t.setGravity(Gravity.START);
-                t.setTextColor(Color.BLACK);
-                t.setBackgroundColor(Color.WHITE);
+              //  t.setTextColor(Color.BLACK);
+              //  t.setBackgroundColor(Color.WHITE);
                 // t.setBackgroundResource(R.drawable.table_custom_text_conclusion);
                 t.setTypeface(typeface);
-                t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+               // t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t,layoutParams);
                 TextView t1 = new TextView(v.getContext());
+                t1.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 //t1.setBackgroundResource(R.drawable.table_custom_text_conclusion);
                 String rounding=jj4.get(key).toString();
                 Double myDouvle=Double.valueOf(rounding);
                 String newValue= df.format(myDouvle);
                 t1.setText(newValue);
                 t1.setGravity(Gravity.CENTER);
-                t1.setBackgroundColor(Color.WHITE);
+              //  t1.setBackgroundColor(Color.WHITE);
                 t1.setTypeface(typeface);
-                t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                //t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 tr.addView(t1,layoutParams);
                 tableLayout1.addView(tr, layoutParams);
 

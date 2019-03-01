@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blueGrey"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -17,7 +19,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/linear"
-        style="@style/Widget.MaterialComponents.CardView"
+        style="@style/CardBaground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -29,9 +31,8 @@
         android:layout_marginStart="@dimen/cardMarginMain"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="5dp"
-        app:strokeColor="@color/cardStrokeColor"
+        app:strokeColor="@color/colorAccent"
         app:strokeWidth="1dp">
 
         <LinearLayout
@@ -50,18 +51,24 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/_91"
+                    style="@style/TextViewTheme"
                     android:textSize="20sp" />
-
+<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="@string/your_phone_number"
+    style="@style/TextInputLayoutTheme"
+    >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans_light"
-                    android:hint="@string/your_phone_number"
+                    style="@style/TextInputEditTextTheme"
                     android:inputType="phone"
                     android:maxLength="10"
-                    android:textSize="18sp"
                     android:textStyle="bold" />
+</com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <FrameLayout
@@ -70,15 +77,16 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/login"
+                    style="@style/BrandButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/open_sans_light"
                     android:text="@string/next"
-                    android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progressBar"

@@ -1,10 +1,13 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:fitsSystemWindows="true"
     android:isScrollContainer="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/colorPrimaryDark"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.udaysaikumar.clgattendance.Fragments.FragmentSem_11">
 
@@ -21,7 +24,7 @@
         </TableLayout>-->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        style="@style/Widget.MaterialComponents.CardView"
+        style="@style/CardBaground"
         android:layout_margin="2dp"
         app:strokeColor="@color/cardStrokeColor"
         app:strokeWidth="@dimen/cardStrokeWidth"
@@ -39,54 +42,33 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/tables11"
-    android:background="@color/tableMarginColor"
+    android:background="@color/colorPrimaryDark"
     android:stretchColumns="*"
     android:shrinkColumns="*">
     <TableRow android:layout_marginBottom="1dp">
         <TextView
-            android:background="@android:color/white"
             android:id="@+id/subject"
-            android:fontFamily="@font/open_sans"
-            android:textColor="@color/t11"
             android:gravity="start|center_horizontal"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:ellipsize="end"
+           style="@style/TextViewTheme"
             />
 
         <TextView
-            android:background="@android:color/white"
             android:id="@+id/internals"
-            android:fontFamily="@font/open_sans"
-            android:textColor="@color/t11"
             android:gravity="center_vertical|center"
-            android:textSize="18sp"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"/>
+            style="@style/TextViewTheme"
+            />
 
         <TextView
-            android:background="@android:color/white"
             android:id="@+id/externals"
-            android:fontFamily="@font/open_sans"
-            android:textColor="@color/t11"
             android:gravity="center_vertical|center"
-            android:textSize="18sp"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"/>
+            style="@style/TextViewTheme"
+            />
 
         <TextView
-            android:background="@android:color/white"
             android:id="@+id/total"
-            android:fontFamily="@font/open_sans"
-            android:textColor="@color/t11"
             android:gravity="center_vertical|center"
-            android:textSize="18sp"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"/>
+            style="@style/TextViewTheme"
+            />
     </TableRow>
 
 </TableLayout>
@@ -94,11 +76,10 @@
     </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            style="@style/Widget.MaterialComponents.CardView"
+            style="@style/CardBaground"
             android:layout_margin="@dimen/cardMargin"
             android:padding="1dp"
-            app:cardCornerRadius="8dp"
-            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
             android:clickable="true"
             app:strokeColor="@color/cardStrokeColor"
             app:strokeWidth="@dimen/cardStrokeWidth"
@@ -111,7 +92,7 @@
             android:id="@+id/tablesfinal"
             android:paddingStart="3dp"
             android:paddingEnd="3dp"
-            android:background="@color/tableMarginColor"
+            android:background="@color/colorPrimaryDark"
             android:stretchColumns="*">
         </TableLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -122,4 +103,4 @@
 
 
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

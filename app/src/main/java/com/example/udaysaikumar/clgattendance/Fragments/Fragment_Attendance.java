@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,7 +23,6 @@ import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import com.example.udaysaikumar.clgattendance.Interfaces.ConnectionInterface;
 import com.example.udaysaikumar.clgattendance.Others.DayDecorator;
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
@@ -79,6 +79,8 @@ private List<String> monthList=new LinkedList<>();
   private static int todayMonth;
   private static int todayYear;
   private static int todayDate;
+  private String month;
+  private String year;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -98,7 +100,6 @@ tableAttendance=v.findViewById(R.id.tableAttendance);
         myCalendar=Calendar.getInstance();
         API_KEY=getResources().getString(R.string.APIKEY);
         ATTENDANCE_COLLECTION=getResources().getString(R.string.attendanceCollection);
-
         mCV.canScrollVertically(1);
         mCV.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
 seekBar.setOnTouchListener(new View.OnTouchListener() {
@@ -107,7 +108,7 @@ seekBar.setOnTouchListener(new View.OnTouchListener() {
         return true;
     }
 });
-
+mCV.setSelectionColor(getResources().getColor(R.color.colorPrimary));
         Point point=new Point();
         try {
 
@@ -115,127 +116,9 @@ seekBar.setOnTouchListener(new View.OnTouchListener() {
         }
         catch (Exception e){}
 maxX=point.x;
-
+        retroGet = RetrofitMarksServer.getSecRetrofit().create(RetroGet.class);
         SharedPreferences sharedPreferencess=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
         UNAME=sharedPreferencess.getString("username","");
-        String qq="{\"regno\":{$eq:\""+UNAME+"\"}}";
-        retroGet = RetrofitMarksServer.getSecRetrofit().create(RetroGet.class);
-        Call<String> dataAttendance = retroGet.getPercentage("PERCENTAGE",API_KEY,qq);
-       // Log.d(TAG+"myAttendance","reached 1");
-        dataAttendance.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                assert response.body() != null;
-                String json=response.body();
-               // Log.d(TAG+"myAttendance","reached 2");
-               // Log.d(TAG+"myAttendance",response.body());
-                if(!json.isEmpty()){
-                    try {
-                       JSONArray jsonArray = new JSONArray(json);
-                        JSONObject jsonObject=jsonArray.getJSONObject(0);
-                        Iterator<String>iterator=jsonObject.keys();
-                        String st=null;
-                        while (iterator.hasNext()){
-                             st=iterator.next();
-                        }
-                        String jsonObject1=jsonObject.get(st).toString();
-
-                       f=  Float.parseFloat(jsonObject1);
-                        if(f>=75){
-                            imageId=R.drawable.ic_cool;
-
-                        }else if(f>65){
-                            imageId=R.drawable.ic_sad;
-
-                        }
-                        else {
-                            imageId=R.drawable.ic_crying;
-
-                        }
-                        myText.setText(f.toString());
-                        seekBar.setProgress(Math.round(f));
-                     final ViewTreeObserver viewTreeObserver=seekBar.getViewTreeObserver();
-
-                        if(viewTreeObserver.isAlive())
-                        {
-                            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                                @Override
-                                public void onGlobalLayout() {
-                                    int val = (seekBar.getProgress() * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-                                    int textViewX = val - (myText.getWidth() / 2);
-                                    int finalX = myText.getWidth() + textViewX > maxX ? (maxX - myText.getWidth()) : textViewX /*your margin*/;
-                                    myText.setX(finalX < 0 ? 0/*your margin*/ : finalX);
-                                    myText.setTextSize(25);
-                                    seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                }
-                            });
-
-                        }
-                        seekBar.setThumb(getResources().getDrawable(imageId));
-                       // Log.d(TAG+"myAttendance","reached 3");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                }
-
-            @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                linearLayout.setVisibility(View.VISIBLE);
-                ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
-                connectionInterface.reload();
-            }
-        });
-
-        SharedPreferences sharedPreferences=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
-        UNAME=sharedPreferences.getString("username","");
-        retroGet= TimeStampClass.getTimestamp().create(RetroGet.class);
-Call<String> stringCall=retroGet.getTimeStamp();
-showProgress();
-stringCall.enqueue(new Callback<String>() {
-    @Override
-    public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-        String json=response.body();
-        try {
-            JSONObject jsonObject=new JSONObject(json);
-            JSONArray jsonArray=jsonObject.getJSONArray("zones");
-            JSONObject jsonObject1=jsonArray.getJSONObject(0);
-           timestamp=jsonObject1.getString("timestamp");
-            Timestamp time=new Timestamp((Long.parseLong(timestamp)-19800)*1000L);
-            Date date=new Date(time.getTime());
-            myCalendar.setTime(date);
-         //  todayDate= myCalendar.get(Calendar.DAY_OF_MONTH);
-          //  Log.d(TAG,String.valueOf(myCalendar.get(Calendar.MONTH))+" "+String.valueOf(myCalendar.get(Calendar.DATE)));
-                mCV.setDateSelected(date,true);
-
-            mCV.addDecorator(new DayDecorator(v.getContext(),mCV.getSelectedDate(),-1));
-            todayMonth=myCalendar.get(Calendar.MONTH)+1;
-            todayYear=myCalendar.get(Calendar.YEAR);
-            todayDate=myCalendar.get(Calendar.DAY_OF_MONTH);
-                String month=String.valueOf(todayMonth);
-                String year=String.valueOf(todayYear);
-            String current=month+"/"+year;
-           // Log.d(TAG+"Current",current);
-            callAttendance(month+"/"+year);
-           // Log.d(TAG+"myAttendance","reached 8");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-        hideProgress();
-       // Log.d(TAG+"myAttendance","reached 9"+t.toString());
-        ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
-        connectionInterface.reload();
-       // Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
-
-    }
-});
-
-
         mCV.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
@@ -262,7 +145,7 @@ stringCall.enqueue(new Callback<String>() {
                             displayTable();
                         } else {
                             tableAttendance.removeAllViewsInLayout();
-                            showProgress();
+                          //  showProgress();
                             // Log.d(TAG+"_ContainsMonth_NOT",month);
                             callAttendance(month);
                         }
@@ -273,10 +156,140 @@ stringCall.enqueue(new Callback<String>() {
                // Log.d(TAG,String.valueOf(date.getDay())+"  "+String.valueOf(date.getMonth())+" "+String.valueOf(date.getYear()));
             }
         });
-
-
-
+        loadPercentage();
+        loadCalendar();
         return v;
+    }
+
+
+    public void loadCalendar()
+    {
+
+        retroGet= TimeStampClass.getTimestamp().create(RetroGet.class);
+        Call<String> stringCall=retroGet.getTimeStamp();
+        showProgress();
+        stringCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                String json=response.body();
+                try {
+                    JSONObject jsonObject=new JSONObject(json);
+                    JSONArray jsonArray=jsonObject.getJSONArray("zones");
+                    JSONObject jsonObject1=jsonArray.getJSONObject(0);
+                    timestamp=jsonObject1.getString("timestamp");
+                    Timestamp time=new Timestamp((Long.parseLong(timestamp)-19800)*1000L);
+                    Date date=new Date(time.getTime());
+                    myCalendar.setTime(date);
+                    //  todayDate= myCalendar.get(Calendar.DAY_OF_MONTH);
+                    //  Log.d(TAG,String.valueOf(myCalendar.get(Calendar.MONTH))+" "+String.valueOf(myCalendar.get(Calendar.DATE)));
+                    mCV.setDateSelected(date,true);
+
+                    mCV.addDecorator(new DayDecorator(v.getContext(),mCV.getSelectedDate(),-1));
+                    todayMonth=myCalendar.get(Calendar.MONTH)+1;
+                    todayYear=myCalendar.get(Calendar.YEAR);
+                    todayDate=myCalendar.get(Calendar.DAY_OF_MONTH);
+                    month=String.valueOf(todayMonth);
+                     year=String.valueOf(todayYear);
+                    String current=month+"/"+year;
+                    // Log.d(TAG+"Current",current);
+                    callAttendance(month+"/"+year);
+                    // Log.d(TAG+"myAttendance","reached 8");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                hideProgress();
+              //  if(checkNet()) {
+                    loadCalendar();
+              //  }
+                // Log.d(TAG+"myAttendance","reached 9"+t.toString());
+               // ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
+               // connectionInterface.reload();
+                // Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+    public void loadPercentage()
+    {
+        showProgress();
+        String qq="{\"regno\":{$eq:\""+UNAME+"\"}}";
+        Log.d(TAG+"myQuery",qq);
+        Call<String> dataAttendance = retroGet.getPercentage("PERCENTAGE",API_KEY,qq);
+        // Log.d(TAG+"myAttendance","reached 1");
+        dataAttendance.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                assert response.body() != null;
+                String json=response.body();
+                // Log.d(TAG+"myAttendance","reached 2");
+                // Log.d(TAG+"myAttendance",response.body());
+                try {
+                    if (!json.isEmpty()) {
+                        JSONArray jsonArray = new JSONArray(json);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        Iterator<String> iterator = jsonObject.keys();
+                        String st = null;
+                        while (iterator.hasNext()) {
+                            st = iterator.next();
+                        }
+                        String jsonObject1 = jsonObject.get(st).toString();
+
+                        f = Float.parseFloat(jsonObject1);
+                        if (f >= 75) {
+                            imageId = R.drawable.ic_cool;
+
+                        } else if (f > 65) {
+                            imageId = R.drawable.ic_sad;
+
+                        } else {
+                            imageId = R.drawable.ic_crying;
+
+                        }
+                        myText.setText(f.toString());
+                        seekBar.setProgress(Math.round(f));
+                        final ViewTreeObserver viewTreeObserver = seekBar.getViewTreeObserver();
+
+                        if (viewTreeObserver.isAlive()) {
+                            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                @Override
+                                public void onGlobalLayout() {
+                                    int val = (seekBar.getProgress() * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
+                                    int textViewX = val - (myText.getWidth() / 2);
+                                    int finalX = myText.getWidth() + textViewX > maxX ? (maxX - myText.getWidth()) : textViewX /*your margin*/;
+                                    myText.setX(finalX < 0 ? 0/*your margin*/ : finalX);
+                                    myText.setTextSize(25);
+                                    seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                }
+                            });
+
+                        }
+                        seekBar.setThumb(getResources().getDrawable(imageId));
+                        // Log.d(TAG+"myAttendance","reached 3");
+                    }
+                }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                hideProgress();
+              //  linearLayout.setVisibility(View.VISIBLE);
+               // if(checkNet()) {
+                    loadPercentage();
+                //}
+//                ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
+//                connectionInterface.reload();
+            }
+        });
     }
     public int position(int ss)
     {
@@ -287,6 +300,7 @@ stringCall.enqueue(new Callback<String>() {
         return finalX;
     }
     public void callAttendance(final String adate){
+        showProgress();
        // Log.d(TAG+"myAttendance","reached 12");
         // String customReg="15A81A05J1";
        final String q= "{\"Rollno\":\""+UNAME+"\",\"MONTHYEAR\":\""+adate+"\"}";
@@ -319,19 +333,20 @@ stringCall.enqueue(new Callback<String>() {
                         hideProgress();
                     }
                 }
-
             }
-
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 // Log.d(TAG+"myAttendance","reached 9"+t.toString());
                 try {
                     hideProgress();
-                    ConnectionInterface connectionInterface = (ConnectionInterface) getActivity();
-                    connectionInterface.reload();
+                    //if(checkNet()) {
+                       // callAttendance(month + "/" + year);
+                  //  }
+//                    ConnectionInterface connectionInterface = (ConnectionInterface) getActivity();
+//                    connectionInterface.reload();
                 }catch (Exception e)
                 {
-hideProgress();
+                  hideProgress();
                 }
                // Log.d(TAG+"myAttendance",t.toString());
               //  Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
@@ -391,64 +406,58 @@ public void displayTable()
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 0, 0, 1);
                 TextView t2 = new TextView(v.getContext());
+                t2.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 t2.setText("Subject");
-                t2.setSingleLine();
+                //t2.setSingleLine();
                 t2.setMaxLines(1);
-                t2.setEllipsize(TextUtils.TruncateAt.END);
+                //t2.setEllipsize(TextUtils.TruncateAt.END);
                 t2.setPadding(5, 0, 0, 0);
                 t2.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
-                t2.setTextColor(getResources().getColor(R.color.colorPrimary));
-                t2.setBackgroundColor(Color.WHITE);
+               // t2.setBackgroundColor(Color.WHITE);
                 t2.setTypeface(typeface);
                 t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tr1.addView(t2, layoutParams);
                 TextView t3 = new TextView(v.getContext());
+                t3.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                 t3.setText("Period");
-                t3.setSingleLine();
+             //   t3.setSingleLine();
                 t3.setMaxLines(1);
-                t3.setEllipsize(TextUtils.TruncateAt.END);
+             //   t3.setEllipsize(TextUtils.TruncateAt.END);
                 t3.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
-                t3.setTextColor(getResources().getColor(R.color.colorPrimary));
-                t3.setBackgroundColor(Color.WHITE);
+              //  t3.setTextColor(getResources().getColor(R.color.colorPrimary));
+                //t3.setBackgroundColor(Color.WHITE);
                 t3.setTypeface(typeface);
-                t3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+              //  t3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tr1.addView(t3, layoutParams);
                 tableAttendance.addView(tr1, layoutParams);
                 for (int i = 0; i < linkedList.size(); i++) {
                     TableRow tr = new TableRow(v.getContext());
                     layoutParams.setMargins(0, 0, 0, 1);
                     TextView t = new TextView(v.getContext());
+                    t.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                     String newString=linkedList.get(i).getSubjectName();
-//                    if(newString.length()>25)
-//                    {
-//                        String newText=linkedList.get(i).getSubjectName().substring(0,25);
-//                        newText=newText+"...";
-//                        t.setText(newText);
-//
-//                    }
-//                    else{
-                        t.setText(newString);
-                   // }
+                    t.setText(newString);
                     t.setPadding(5, 0, 0, 0);
                     t.setGravity(Gravity.START);
-                    t.setTextColor(Color.BLACK);
-                    t.setBackgroundColor(Color.WHITE);
+                   // t.setTextColor(Color.BLACK);
+                   // t.setBackgroundColor(Color.WHITE);
                     t.setTypeface(typeface);
-                    t.setSingleLine();
+                    //t.setSingleLine();
                     t.setMaxLines(1);
-                    t.setEllipsize(TextUtils.TruncateAt.END);
-                    t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                    //t.setEllipsize(TextUtils.TruncateAt.END);
+                    //t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                     tr.addView(t, layoutParams);
                     TextView t1 = new TextView(v.getContext());
+                    t1.setTextAppearance(v.getContext(),R.style.TextViewTheme);
                     t1.setText(linkedList.get(i).getPeriod());
                     t1.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
-                    t1.setTextColor(Color.BLACK);
-                    t1.setBackgroundColor(Color.WHITE);
+                 //   t1.setTextColor(Color.BLACK);
+                  //  t1.setBackgroundColor(Color.WHITE);
                     t1.setSingleLine();
-                    t1.setMaxLines(1);
-                    t1.setEllipsize(TextUtils.TruncateAt.END);
+                   // t1.setMaxLines(1);
+                   // t1.setEllipsize(TextUtils.TruncateAt.END);
                     t1.setTypeface(typeface);
-                    t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                   // t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                     tr.addView(t1, layoutParams);
                     tableAttendance.addView(tr, layoutParams);
                 }

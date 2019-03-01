@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/frahome"
-    android:background="#eceff1"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/myAppBar"
@@ -17,12 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="#ffffff"
+            app:contentScrim="@color/contentScrim"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
                 android:layout_margin="4dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:focusable="true"
@@ -31,6 +33,7 @@
                 app:layout_collapseParallaxMultiplier="0.7"
                 app:strokeColor="@color/cardStrokeColor"
                 app:strokeWidth="@dimen/cardStrokeWidth"
+                style="@style/CardBaground"
                 android:layout_gravity="center_vertical|center_horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,10 +83,9 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/open_sans"
                                 android:maxLines="1"
-                                android:singleLine="true"
-                                android:ellipsize="end"
+                                style="@style/TextViewTheme"
                                 android:gravity="center"
-                                android:textSize="15sp" />
+                                />
 
                             <TextView
 
@@ -92,9 +94,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:singleLine="true"
-                                android:ellipsize="end"
-                                android:textSize="15sp"
+                                style="@style/TextViewTheme"
                                 android:textAppearance="@style/TextAppearance.AppCompat" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -147,11 +147,12 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:focusable="true"
                         android:clickable="true"
+                        style="@style/CardBaground"
                         app:strokeColor="@color/cardStrokeColor"
                         app:strokeWidth="@dimen/cardStrokeWidth"
                         app:cardCornerRadius="7dp">
                         <TableLayout
-                            android:background="#eceff1"
+                            android:background="@color/colorPrimaryDark"
                             android:layout_width="match_parent"
                             android:id="@+id/basic"
                             android:layout_height="wrap_content"
@@ -166,6 +167,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:focusable="true"
                         android:clickable="true"
+                        style="@style/CardBaground"
                         app:strokeColor="@color/cardStrokeColor"
                         app:strokeWidth="@dimen/cardStrokeWidth"
                         app:cardCornerRadius="7dp">
@@ -173,7 +175,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/btech"
-                            android:background="#FFFFFF"
+                            android:background="@color/colorPrimaryDark"
                             android:stretchColumns="*"
                             android:shrinkColumns="*">
                         </TableLayout>
@@ -185,6 +187,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:focusable="true"
                         android:clickable="true"
+                        style="@style/CardBaground"
                         app:strokeColor="@color/cardStrokeColor"
                         app:strokeWidth="@dimen/cardStrokeWidth"
                         app:cardCornerRadius="7dp">
@@ -207,10 +210,9 @@
                                     android:id="@+id/phoneNumber"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="8dp"
-                                    android:fontFamily="@font/open_sans"
-                                    android:textSize="15sp"
+                                    style="@style/TextViewTheme"
                                     android:text="XXXXXXXXXX"
-                                    android:textColor="#000000"/>
+                                    />
                             </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -223,6 +225,7 @@
                         android:focusable="true"
                         app:strokeColor="@color/cardStrokeColor"
                         app:strokeWidth="@dimen/cardStrokeWidth"
+                        style="@style/CardBaground"
                         android:clickable="true">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -243,10 +246,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="8dp"
-                                    android:fontFamily="@font/open_sans"
-                                    android:textSize="15sp"
+                                    style="@style/TextViewTheme1"
                                     android:text="xxxxxxxxx\nxxxxxxxxx\nxxxxxxxxx\nxxxxxxxxx"
-                                    android:textColor="#000000"/>
+                                   />
                             </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>

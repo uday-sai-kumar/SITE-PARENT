@@ -4,13 +4,15 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/blueGrey"
+    android:clickable="true"
+    android:focusable="true"
     tools:context="com.example.udaysaikumar.clgattendance.Fragments.Fragment_Marks"
     >
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/myAppBar"
         android:layout_width="match_parent"
         android:fitsSystemWindows="true"
-        android:background="#eceff1"
+        android:background="@color/colorPrimaryDark"
         android:layout_height="100dp"
         >
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -18,23 +20,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="#ffffff"
+            app:contentScrim="@color/contentScrim"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                style="@style/Widget.MaterialComponents.CardView"
+                style="@style/CardBaground"
                 android:layout_margin="3dp"
                 app:strokeWidth="@dimen/cardStrokeWidth"
                 android:padding="1dp"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
                 app:layout_collapseMode="parallax"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:focusable="true"
-                app:strokeColor="@color/cardStrokeColor"
+                app:strokeColor="@color/colorAccent"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -44,11 +45,10 @@
 
                     <TextView
                         android:id="@+id/myView"
+                        style="@style/TextViewTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/open_sans"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textSize="0sp" />
+                         />
                     <SeekBar
                         android:id="@+id/seekBar"
                         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
             android:id="@+id/myProgress"/>-->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/fragattend"
-        android:background="@color/blueGrey"
+        android:background="@color/colorPrimaryDark"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:fitsSystemWindows="true"
@@ -101,17 +101,56 @@
             android:layout_height="match_parent"
             android:background="@color/blueGrey"
             android:orientation="vertical">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                style="@style/CardBaground"
+                android:layout_margin="3dp"
+                app:strokeWidth="@dimen/cardStrokeWidth"
+                android:padding="1dp"
+                app:cardCornerRadius="8dp"
+                app:layout_collapseMode="parallax"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:focusable="true"
+                app:strokeColor="@color/colorAccent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_custom"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/showPercentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textSize="0sp" />
+                    <SeekBar
+                        android:id="@+id/seekBarPercentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:maxHeight="40dp"
+                        android:progressDrawable="@drawable/seek_bar_drawable"/>
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
+                style="@style/CardBaground"
+                app:strokeColor="@color/colorAccent"
                 android:focusable="true"
                 android:padding="1dp"
                 app:strokeWidth="@dimen/cardStrokeWidth"
-                app:cardCornerRadius="8dp"
-                android:background="@color/blueGrey"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
                 android:layout_margin="@dimen/cardMargin">
 
                     <androidx.viewpager.widget.ViewPager
@@ -126,14 +165,14 @@
                             android:id="@+id/tabs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="#ffffff"
+                            android:background="@color/colorPrimaryDark"
                             android:focusableInTouchMode="true"
                             app:tabGravity="fill"
                             app:tabIndicatorColor="#64b5f6"
-                            app:tabIndicatorHeight="7sp"
+                            app:tabIndicatorHeight="4sp"
                             app:tabMode="scrollable"
-                            app:tabSelectedTextColor="@color/colorPrimary"
-                            app:tabTextColor="#000000" />
+                            app:tabSelectedTextColor="@color/selectcolor"
+                            app:tabTextColor="@color/textColor" />
                     </androidx.viewpager.widget.ViewPager>
             </com.google.android.material.card.MaterialCardView>
 
@@ -141,16 +180,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:strokeWidth="@dimen/cardStrokeWidth"
-                android:foreground="?android:attr/selectableItemBackground"
+                style="@style/CardBaground"
+                app:strokeColor="@color/colorAccent"
                 android:focusable="true"
                 android:clickable="true"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
                 android:layout_margin="2dp">
             <TableLayout
                 android:id="@+id/finalmarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/tableMarginColor"
+                android:background="@color/colorPrimaryDark"
                  />
 
             </com.google.android.material.card.MaterialCardView>

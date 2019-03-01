@@ -1,15 +1,14 @@
 package com.example.udaysaikumar.clgattendance.Fragments;
-
-
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import com.example.udaysaikumar.clgattendance.Interfaces.ConnectionInterface;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,22 +48,22 @@ private String s;
    private RetroGet retroGet;
     private JSONArray j;
   private   JSONObject job;
- private    String st;
  private    List<String> list=new ArrayList<>();
     private List<String> listSecond=new ArrayList<>();
   private   Map<String,JSONObject> map=new LinkedHashMap<>();
-private SeekBar seekBar;
- private    TextView myText;
+private SeekBar seekBar,seekBarPercentage;
+ private    TextView myText,showPercentage;
  private    int maxX;
    private int imageId;
    private ProgressBar progressBar;
    private LinearLayout linearLayout;
-   // ImageView myImage;
    private View v;
    private String MARKS="MARKS";
    private String TAG="Fragment_Marks_Log";
    private String finalPercentage;
    private  DecimalFormat df;
+   private String  UNAME;
+   private Map<String,String> myPercentage=new LinkedHashMap<>();
 
 
     @Override
@@ -74,15 +73,15 @@ private SeekBar seekBar;
        v=inflater.inflate(R.layout.fragment_fragment__marks, container, false);
         seekBar=v.findViewById(R.id.seekBar);
         myText=v.findViewById(R.id.myView);
-
-    API_KEY=getResources().getString(R.string.APIKEY);
+        API_KEY=getResources().getString(R.string.APIKEY);
         SharedPreferences sharedPreferences=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
-        final String UNAME=sharedPreferences.getString("username","");
+         UNAME=sharedPreferences.getString("username","");
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.FLOOR);
-        // String PASS=sharedPreferences.getString("password","");
         progressBar=v.findViewById(R.id.marksProgress);
         linearLayout=v.findViewById(R.id.marksLayout);
+        showPercentage=v.findViewById(R.id.showPercentage);
+        seekBarPercentage=v.findViewById(R.id.seekBarPercentage);
         seekBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -91,7 +90,6 @@ private SeekBar seekBar;
         });
         Point point=new Point();
         try {
-
             getActivity().getWindowManager().getDefaultDisplay().getSize(point);
         }
         catch (Exception e){
@@ -99,7 +97,42 @@ private SeekBar seekBar;
         }
         //    Log.d("wholepositions",point.toString());
         maxX=point.x;
+        showPercentage();
+        return v;
 
+    }
+    public void showIndividual()
+    {
+        final ViewTreeObserver viewTreeObserver = seekBarPercentage.getViewTreeObserver();
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    // Log.d("wholepositions1", String.valueOf(maxX));
+                    // Log.d("wholepositions2", String.valueOf(seekBar.getWidth()));
+                    // Log.d("wholepositions3", String.valueOf(seekBar.getThumbOffset()));
+                    int val = (seekBarPercentage.getProgress() * (seekBarPercentage.getWidth() - 2 * seekBarPercentage.getThumbOffset())) / seekBar.getMax();
+                    //  Log.d("wholepositions3", String.valueOf(seekBar.getProgress()));
+                    //  Log.d("wholepositions4", String.valueOf((seekBar.getWidth() - 2 * seekBar.getThumbOffset())));
+
+                    int textViewX = val - (showPercentage.getWidth() / 2);
+                    //   Log.d("wholepositions5", String.valueOf(val));
+                    // Log.d("wholepositions6", String.valueOf(textViewX));
+
+                    int finalX = showPercentage.getWidth() + textViewX > maxX ? (maxX - showPercentage.getWidth()) : textViewX /*your margin*/;
+                    // Log.d("wholepositions7", String.valueOf(finalX));
+                    showPercentage.setX(finalX < 0 ? 0/*your margin*/ : finalX);
+                    showPercentage.setTextSize(25);
+                    // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
+                    seekBarPercentage.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
+        }
+    }
+    public void showPercentage()
+    {
+        showProgress();
+       // tabLayout.removeAllViewsInLayout();
         String q="{\"regno\":{$eq:\""+ UNAME+"\"}}";
         retroGet = RetrofitMarksServer.getSecRetrofit().create(RetroGet.class);
         Call<String> dataCall = retroGet.getMarksData(MARKS,API_KEY,q);
@@ -109,9 +142,8 @@ private SeekBar seekBar;
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if(response.body()!=null)
                 {
-                  //  Log.d(TAG,response.body());
+                    //  Log.d(TAG,response.body());
                     String json=response.body();
-                    st=json;
 
                     try {
                         j = new JSONArray(json);
@@ -120,6 +152,14 @@ private SeekBar seekBar;
                         Iterator<String> it = job.keys();
                         while (it.hasNext()) {
                             s = it.next();
+                            try{
+                               // Log.d(TAG,s);
+                              //  Log.d(TAG,job.getJSONObject(s).toString());
+                            myPercentage.put(s, job.getJSONObject(s).getJSONObject("final").getString("%"));
+                        }catch (JSONException e)
+                            {
+
+                            }
                         }
 
                         JSONObject jj = job.getJSONObject(s);
@@ -132,8 +172,9 @@ private SeekBar seekBar;
 
                         while (itt1.hasNext()) {
                             ss = itt1.next();
+                           // myPercentage.put(ss,jj1.get)
                             try {
-                              //  Log.d(TAG, jj1.getString(ss));
+                                //  Log.d(TAG, jj1.getString(ss));
                                 if (ss.contains("% up to")) {
                                     finalPercentage = jj1.getString(ss);
                                     b = true;
@@ -143,11 +184,11 @@ private SeekBar seekBar;
                                     if (ss.contains("CGPA up to") || ss.contains("CGPA")) {
                                         seekBar.setMax(10);
                                         finalPercentage = jj1.getString(ss);
-                                       // Log.d(TAG+"good", finalPercentage);
+                                        // Log.d(TAG+"good", finalPercentage);
                                     }
 
                                     if (ss.contains("CGPA")) {
-                                       // Log.d(TAG+"good","executed");
+                                        // Log.d(TAG+"good","executed");
                                         b = true;
                                         break;
                                     }
@@ -178,17 +219,17 @@ private SeekBar seekBar;
                         String DE = "%";
 
                         try {
-                           // Log.d(TAG+"good",finalPercentage);
+                            // Log.d(TAG+"good",finalPercentage);
                             finalPercentage = df.format(Double.valueOf(finalPercentage));
-                          //  Log.d(TAG+"good",finalPercentage);
+                            //  Log.d(TAG+"good",finalPercentage);
                             Double ff=Double.parseDouble(finalPercentage);
-                           // Log.d(TAG+"good",finalPercentage);
+                            // Log.d(TAG+"good",finalPercentage);
                             // Log.d(TAG,finalPercentage);
                             //  SharedPreferences sharedPreferences=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
                             // final String UNAME=sharedPreferences.getString("username","");
-                           // Log.d(TAG,"reached 123");
-                           // Log.d(TAG, String.valueOf(ff));
-                           // Log.d(TAG,"reached 124");
+                            // Log.d(TAG,"reached 123");
+                            // Log.d(TAG, String.valueOf(ff));
+                            // Log.d(TAG,"reached 124");
                             if (ff <= 10) {
                                 //cd.showValue(Float.parseFloat(jj1.get(ss).toString()), 100f, false);
                                 //Double f = ff;
@@ -200,22 +241,22 @@ private SeekBar seekBar;
                                     viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                                         @Override
                                         public void onGlobalLayout() {
-                                           // Log.d("wholepositions1", String.valueOf(maxX));
-                                           // Log.d("wholepositions2", String.valueOf(seekBar.getWidth()));
-                                           // Log.d("wholepositions3", String.valueOf(seekBar.getThumbOffset()));
+                                            // Log.d("wholepositions1", String.valueOf(maxX));
+                                            // Log.d("wholepositions2", String.valueOf(seekBar.getWidth()));
+                                            // Log.d("wholepositions3", String.valueOf(seekBar.getThumbOffset()));
                                             int val = (seekBar.getProgress() * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-                                          //  Log.d("wholepositions3", String.valueOf(seekBar.getProgress()));
-                                          //  Log.d("wholepositions4", String.valueOf((seekBar.getWidth() - 2 * seekBar.getThumbOffset())));
+                                            //  Log.d("wholepositions3", String.valueOf(seekBar.getProgress()));
+                                            //  Log.d("wholepositions4", String.valueOf((seekBar.getWidth() - 2 * seekBar.getThumbOffset())));
 
                                             int textViewX = val - (myText.getWidth() / 2);
-                                         //   Log.d("wholepositions5", String.valueOf(val));
-                                           // Log.d("wholepositions6", String.valueOf(textViewX));
+                                            //   Log.d("wholepositions5", String.valueOf(val));
+                                            // Log.d("wholepositions6", String.valueOf(textViewX));
 
                                             int finalX = myText.getWidth() + textViewX > maxX ? (maxX - myText.getWidth()) : textViewX /*your margin*/;
-                                           // Log.d("wholepositions7", String.valueOf(finalX));
+                                            // Log.d("wholepositions7", String.valueOf(finalX));
                                             myText.setX(finalX < 0 ? 0/*your margin*/ : finalX);
                                             myText.setTextSize(25);
-                                           // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
+                                            // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
                                             seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                         }
                                     });
@@ -264,10 +305,10 @@ private SeekBar seekBar;
 //                                            Log.d("wholepositions6", String.valueOf(textViewX));
 
                                             int finalX = myText.getWidth() + textViewX > maxX ? (maxX - myText.getWidth()) : textViewX /*your margin*/;
-                                          //  Log.d("wholepositions7", String.valueOf(finalX));
+                                            //  Log.d("wholepositions7", String.valueOf(finalX));
                                             myText.setX(finalX < 0 ? 0/*your margin*/ : finalX);
                                             myText.setTextSize(25);
-                                           // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
+                                            // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
                                             seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                         }
                                     });
@@ -304,17 +345,18 @@ private SeekBar seekBar;
                         //  seekBar.setThumb(drawForSeekBar(v.getContext(),R.drawable.thumb_image_ic_cool));
                         while (it1.hasNext()) {
                             String data=it1.next();
+
                             if(data.equals("regno"))
                             {
                                 continue;
                             }else
-                            list.add(data);
+                                list.add(data);
                         }
                         for (String s : list) {
                             try {
                                 map.put(s, job.getJSONObject(s));
                             } catch (JSONException e) {
-                              //  Log.d(TAG+"Exception here",e.getMessage());
+                                //  Log.d(TAG+"Exception here",e.getMessage());
                                 e.printStackTrace();
                             }
                         }
@@ -332,6 +374,7 @@ private SeekBar seekBar;
                         tabLayout.setupWithViewPager(viewPager);
                         // progressBar.setVisibility(View.INVISIBLE);
                         // relativeLayout.setVisibility(View.VISIBLE);
+                        tabListener();
                         hideProgress();
 
 
@@ -347,24 +390,53 @@ private SeekBar seekBar;
                     //progressBar.setVisibility(View.INVISIBLE);
 
                 }
+
+                Log.d(TAG+"mapData",myPercentage.toString());
             }
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                // progressBar.setVisibility(View.INVISIBLE);
-               // Log.d(TAG+"Exception","exception raised"+t.toString());
                 hideProgress();
-                ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
-                connectionInterface.reload();
+               // if(checkNet()) {
+                    showPercentage();
+              //  }
+                // progressBar.setVisibility(View.INVISIBLE);
+                // Log.d(TAG+"Exception","exception raised"+t.toString());
+//                hideProgress();
+//                ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
+//                connectionInterface.reload();
                 //Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
             }
         });
-
-
-
-        return v;
-
     }
+public  void tabListener()
+{
+    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            try{
+          String myTab=  tab.getText().toString().toLowerCase().replace(" ", "");
+          Log.d(TAG+"tabChanged",myTab);
+          Log.d(TAG+"tabChanged",myPercentage.get(myTab));
+          showPercentage.setText(myPercentage.get(myTab));
+
+        }catch (Exception e)
+            {
+
+            }
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    });
+}
     public void showProgress()
     {
         progressBar.setVisibility(View.VISIBLE);

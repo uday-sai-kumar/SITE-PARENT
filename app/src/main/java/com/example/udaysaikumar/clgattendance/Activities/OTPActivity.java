@@ -91,7 +91,7 @@ void getOTP()
         setContentView(R.layout.activity_otp);
         API_KEY=getResources().getString(R.string.APIKEY);
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
+       // Objects.requireNonNull(getSupportActionBar()).hide();
         optText = findViewById(R.id.opt);
         login = findViewById(R.id.login);
         resent = findViewById(R.id.resentotp);

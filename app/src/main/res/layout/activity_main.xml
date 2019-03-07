@@ -2,16 +2,15 @@
 <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blueGrey"
-    android:clickable="true"
+    android:background="@color/blackColor"
     android:focusableInTouchMode="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/linear"
@@ -31,8 +30,8 @@
         android:layout_marginStart="@dimen/cardMarginMain"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="5dp"
-        app:strokeColor="@color/colorAccent"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:strokeColor="@color/cardStrokeColor"
         app:strokeWidth="1dp">
 
         <LinearLayout

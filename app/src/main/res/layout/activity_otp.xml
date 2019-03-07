@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blueGrey"
+    android:background="@color/blackColor"
     android:clickable="true"
     android:focusableInTouchMode="true"
     android:id="@+id/main"
     tools:context="com.example.udaysaikumar.clgattendance.Activities.OTPActivity">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_above="@id/linear"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -28,9 +28,8 @@
         android:layout_marginEnd="@dimen/cardMarginMain"
         android:layout_alignParentBottom="true"
         app:strokeWidth="1dp"
-        app:strokeColor="@color/colorAccent"
-        app:cardCornerRadius="5dp"
-        android:foreground="?android:attr/selectableItemBackground"
+        app:strokeColor="@color/cardStrokeColor"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
         android:clickable="true"
         android:focusable="true"
         android:layout_height="wrap_content"
@@ -83,9 +82,9 @@
         />
 </FrameLayout>
         <com.google.android.material.chip.Chip
+            android:id="@+id/resentotp"
             style="@style/ChipTheme"
             android:visibility="invisible"
-            android:id="@+id/resentotp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/resent_otp"

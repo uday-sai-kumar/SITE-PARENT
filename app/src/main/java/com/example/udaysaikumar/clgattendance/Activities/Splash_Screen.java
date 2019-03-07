@@ -18,7 +18,7 @@ String SPLASH_URL="http://www.goqwickly.com/imgs/computer-screens/attendance-spl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash__screen);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+      //  Objects.requireNonNull(getSupportActionBar()).hide();
         splash_image=findViewById(R.id.splashimage);
 new Handler().postDelayed(new Runnable() {
     @Override

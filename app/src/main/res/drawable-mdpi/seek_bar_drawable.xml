@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 <item >
-    <shape android:shape="rectangle"   >
+    <shape android:shape="line"  >
         <corners android:radius="5dp"/>
-        <stroke android:width="1dp"
-            android:color="#ef9a9a"/>
+        <stroke android:width="5dp"
+            android:color="@color/greenColor"/>
         <gradient
             android:angle="180"
-            android:endColor="#eeeeee"
-            android:startColor="#eceff1" />
+            android:endColor="@color/greyColor"
+            android:startColor="@color/whiteColor" />
     </shape>
 </item>
     <item>
         <clip>
-            <shape android:shape="rectangle">
+            <shape android:shape="line">
                 <corners android:radius="5dp"/>
-                <stroke android:width="1dp"
-                    android:color="#ef9a9a"/>
+                <stroke android:width="5dp"
+                    android:color="@color/blueColor"/>
                 <gradient
                     android:angle="180"
-                    android:endColor="#D0F5B74B"
-                    android:startColor="#ff8a80" />
+                    android:endColor="@color/greenColor"
+                    android:startColor="@color/blueColor" />
             </shape>
         </clip>
     </item>

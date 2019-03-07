@@ -49,25 +49,25 @@
         <TextView
             android:id="@+id/subject"
             android:gravity="start|center_horizontal"
-           style="@style/TextViewTheme"
+           style="@style/TextViewBlue"
             />
 
         <TextView
             android:id="@+id/internals"
             android:gravity="center_vertical|center"
-            style="@style/TextViewTheme"
+            style="@style/TextViewBlue"
             />
 
         <TextView
             android:id="@+id/externals"
             android:gravity="center_vertical|center"
-            style="@style/TextViewTheme"
+            style="@style/TextViewBlue"
             />
 
         <TextView
             android:id="@+id/total"
             android:gravity="center_vertical|center"
-            style="@style/TextViewTheme"
+            style="@style/TextViewBlue"
             />
     </TableRow>
 
@@ -77,7 +77,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             style="@style/CardBaground"
-            android:layout_margin="@dimen/cardMargin"
+            android:layout_margin="@dimen/cardLayoutMargin"
             android:padding="1dp"
             app:cardCornerRadius="@dimen/cardCornerRadius"
             android:clickable="true"

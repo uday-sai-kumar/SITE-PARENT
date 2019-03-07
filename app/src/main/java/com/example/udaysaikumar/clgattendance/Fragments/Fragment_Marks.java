@@ -51,8 +51,11 @@ private String s;
  private    List<String> list=new ArrayList<>();
     private List<String> listSecond=new ArrayList<>();
   private   Map<String,JSONObject> map=new LinkedHashMap<>();
-private SeekBar seekBar,seekBarPercentage;
- private    TextView myText,showPercentage;
+private SeekBar seekBar;
+//private SeekBar seekBarPercentage;
+ private    TextView myText,showPercentage,status;
+// private TextView showSemister;
+ //private TextView individualStatus;
  private    int maxX;
    private int imageId;
    private ProgressBar progressBar;
@@ -60,12 +63,23 @@ private SeekBar seekBar,seekBarPercentage;
    private View v;
    private String MARKS="MARKS";
    private String TAG="Fragment_Marks_Log";
+   private String statusExcellent="Excellent";
+   private String statusAverage="Average";
+   private String statusInsufficient="Insufficient";
    private String finalPercentage;
    private  DecimalFormat df;
    private String  UNAME;
    private Map<String,String> myPercentage=new LinkedHashMap<>();
 
-
+public void stopTouchListener(SeekBar myseekBar)
+{
+    myseekBar.setOnTouchListener(new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return true;
+        }
+    });
+}
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
@@ -81,13 +95,12 @@ private SeekBar seekBar,seekBarPercentage;
         progressBar=v.findViewById(R.id.marksProgress);
         linearLayout=v.findViewById(R.id.marksLayout);
         showPercentage=v.findViewById(R.id.showPercentage);
-        seekBarPercentage=v.findViewById(R.id.seekBarPercentage);
-        seekBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
+      //  seekBarPercentage=v.findViewById(R.id.seekBarPercentage);
+      //  showSemister=v.findViewById(R.id.showSemister);
+        status=v.findViewById(R.id.status);
+       // individualStatus=v.findViewById(R.id.individualStatus);
+       stopTouchListener(seekBar);
+      //  stopTouchListener(seekBarPercentage);
         Point point=new Point();
         try {
             getActivity().getWindowManager().getDefaultDisplay().getSize(point);
@@ -101,32 +114,68 @@ private SeekBar seekBar,seekBarPercentage;
         return v;
 
     }
-    public void showIndividual()
+    public void showStatus(final SeekBar seekBar, final TextView myText)
     {
-        final ViewTreeObserver viewTreeObserver = seekBarPercentage.getViewTreeObserver();
+        final ViewTreeObserver viewTreeObserver = seekBar.getViewTreeObserver();
         if (viewTreeObserver.isAlive()) {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    // Log.d("wholepositions1", String.valueOf(maxX));
-                    // Log.d("wholepositions2", String.valueOf(seekBar.getWidth()));
-                    // Log.d("wholepositions3", String.valueOf(seekBar.getThumbOffset()));
-                    int val = (seekBarPercentage.getProgress() * (seekBarPercentage.getWidth() - 2 * seekBarPercentage.getThumbOffset())) / seekBar.getMax();
-                    //  Log.d("wholepositions3", String.valueOf(seekBar.getProgress()));
-                    //  Log.d("wholepositions4", String.valueOf((seekBar.getWidth() - 2 * seekBar.getThumbOffset())));
-
-                    int textViewX = val - (showPercentage.getWidth() / 2);
-                    //   Log.d("wholepositions5", String.valueOf(val));
-                    // Log.d("wholepositions6", String.valueOf(textViewX));
-
-                    int finalX = showPercentage.getWidth() + textViewX > maxX ? (maxX - showPercentage.getWidth()) : textViewX /*your margin*/;
-                    // Log.d("wholepositions7", String.valueOf(finalX));
-                    showPercentage.setX(finalX < 0 ? 0/*your margin*/ : finalX);
-                    showPercentage.setTextSize(25);
-                    // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
-                    seekBarPercentage.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    int val = (seekBar.getProgress() * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
+                    int textViewX = val - (myText.getWidth() / 2);
+                    int finalX = myText.getWidth() + textViewX > maxX ? (maxX - myText.getWidth()) : textViewX /*your margin*/;
+                    myText.setX(finalX < 0 ? 0/*your margin*/ : finalX);
+                    seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             });
+        }
+    }
+//    public void showIndividual()
+//    {
+//        final ViewTreeObserver viewTreeObserver = seekBarPercentage.getViewTreeObserver();
+//        if (viewTreeObserver.isAlive()) {
+//            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                @Override
+//                public void onGlobalLayout() {
+//                    int val = (seekBarPercentage.getProgress() * (seekBarPercentage.getWidth() - 2 * seekBarPercentage.getThumbOffset())) / seekBar.getMax();
+//                    int textViewX = val - (showPercentage.getWidth() / 2);
+//                    int finalX = showPercentage.getWidth() + textViewX > maxX ? (maxX - showPercentage.getWidth()) : textViewX /*your margin*/;
+//                    showPercentage.setX(finalX < 0 ? 0/*your margin*/ : finalX);
+//                    showPercentage.setTextSize(22);
+//                    seekBarPercentage.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                }
+//            });
+//        }
+//    }
+    public void setUpImages(Integer ff,TextView textView)
+    {
+        if (ff <= 10) {
+            if (ff >= 7) {
+                imageId = R.drawable.high_logo;
+                textView.setText(statusExcellent);
+
+            } else if (ff >= 6) {
+                imageId = R.drawable.medium_logo;
+                textView.setText(statusAverage);
+
+            } else {
+                textView.setText(statusInsufficient);
+                imageId = R.drawable.low_logo;
+            }
+        } else {
+            if (ff >= 70) {
+                imageId = R.drawable.high_logo;
+                textView.setText(statusExcellent);
+            } else if (ff >= 60) {
+                imageId = R.drawable.medium_logo;
+                textView.setText(statusAverage);
+
+            } else {
+                imageId = R.drawable.low_logo;
+                status.setText(statusInsufficient);
+
+            }
+
         }
     }
     public void showPercentage()
@@ -176,6 +225,8 @@ private SeekBar seekBar,seekBarPercentage;
                             try {
                                 //  Log.d(TAG, jj1.getString(ss));
                                 if (ss.contains("% up to")) {
+                                    seekBar.setMax(100);
+                                    //seekBarPercentage.setMax(100);
                                     finalPercentage = jj1.getString(ss);
                                     b = true;
                                     break;
@@ -183,11 +234,14 @@ private SeekBar seekBar,seekBarPercentage;
                                 } else {
                                     if (ss.contains("CGPA up to") || ss.contains("CGPA")) {
                                         seekBar.setMax(10);
+                                        //seekBarPercentage.setMax(10);
                                         finalPercentage = jj1.getString(ss);
                                         // Log.d(TAG+"good", finalPercentage);
                                     }
 
                                     if (ss.contains("CGPA")) {
+                                        seekBar.setMax(10);
+                                       // seekBarPercentage.setMax(10);
                                         // Log.d(TAG+"good","executed");
                                         b = true;
                                         break;
@@ -204,9 +258,12 @@ private SeekBar seekBar,seekBarPercentage;
                                 try {
                                     if (ss.contains("SGPA")) {
                                         seekBar.setMax(10);
+                                        //seekBarPercentage.setMax(10);
                                         finalPercentage = jj1.getString(ss);
                                     }
                                     if (ss1.contains("SGPA")) {
+                                        seekBar.setMax(10);
+                                       // seekBarPercentage.setMax(10);
                                         ss = ss1;
                                         break;
                                     }
@@ -223,116 +280,19 @@ private SeekBar seekBar,seekBarPercentage;
                             finalPercentage = df.format(Double.valueOf(finalPercentage));
                             //  Log.d(TAG+"good",finalPercentage);
                             Double ff=Double.parseDouble(finalPercentage);
-                            // Log.d(TAG+"good",finalPercentage);
-                            // Log.d(TAG,finalPercentage);
-                            //  SharedPreferences sharedPreferences=v.getContext().getSharedPreferences("MyLogin",MODE_PRIVATE);
-                            // final String UNAME=sharedPreferences.getString("username","");
-                            // Log.d(TAG,"reached 123");
-                            // Log.d(TAG, String.valueOf(ff));
-                            // Log.d(TAG,"reached 124");
-                            if (ff <= 10) {
-                                //cd.showValue(Float.parseFloat(jj1.get(ss).toString()), 100f, false);
-                                //Double f = ff;
-                                // Float floatval=6.4f;
-                                myText.setText(ff.toString());
-                                seekBar.setProgress(ff.intValue());
-                                final ViewTreeObserver viewTreeObserver = seekBar.getViewTreeObserver();
-                                if (viewTreeObserver.isAlive()) {
-                                    viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                                        @Override
-                                        public void onGlobalLayout() {
-                                            // Log.d("wholepositions1", String.valueOf(maxX));
-                                            // Log.d("wholepositions2", String.valueOf(seekBar.getWidth()));
-                                            // Log.d("wholepositions3", String.valueOf(seekBar.getThumbOffset()));
-                                            int val = (seekBar.getProgress() * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-                                            //  Log.d("wholepositions3", String.valueOf(seekBar.getProgress()));
-                                            //  Log.d("wholepositions4", String.valueOf((seekBar.getWidth() - 2 * seekBar.getThumbOffset())));
-
-                                            int textViewX = val - (myText.getWidth() / 2);
-                                            //   Log.d("wholepositions5", String.valueOf(val));
-                                            // Log.d("wholepositions6", String.valueOf(textViewX));
-
-                                            int finalX = myText.getWidth() + textViewX > maxX ? (maxX - myText.getWidth()) : textViewX /*your margin*/;
-                                            // Log.d("wholepositions7", String.valueOf(finalX));
-                                            myText.setX(finalX < 0 ? 0/*your margin*/ : finalX);
-                                            myText.setTextSize(25);
-                                            // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
-                                            seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                        }
-                                    });
-                                }
-                                if (ff >= 7) {
-                                    imageId = R.drawable.ic_cool;
-                                    // excellent.setText(f.toString());
-                                    // excellent.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_excellent));
-                                } else if (ff >= 6) {
-                                    imageId = R.drawable.ic_sad;
-                                    // satisfacotry.setText(f.toString());
-                                    //  satisfacotry.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_satisfactory));
-
-                                } else {
-                                    imageId = R.drawable.ic_crying;
-                                    // bad.setText(f.toString());
-                                    // bad.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_bad));
 
 
-                                }
-                            } else {
-                                //   Log.d(TAG,"reached 0");
-                                // Log.d(TAG,String.valueOf(ff));
-                                myText.setText(ff.toString());
-                                seekBar.setProgress(ff.intValue());
-                                // Log.d(TAG,"reached1");
-                                //Log.d(TAG,String.valueOf(Math.round(ff)));
-                                // Log.d(TAG,"reached2");
+                            //TODO:PASTE HERE
+                            setUpImages(ff.intValue(),status);
+                            myText.setText(ff.toString());
+                            seekBar.setProgress(ff.intValue());
+                            showStatus(seekBar,myText);
+                            showStatus(seekBar,status);
 
-                                final ViewTreeObserver viewTreeObserver = seekBar.getViewTreeObserver();
-                                // Log.d(TAG,"reached3");
 
-                                if (viewTreeObserver.isAlive()) {
-                                    viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                                        @Override
-                                        public void onGlobalLayout() {
-//                                            Log.d("wholepositions1", String.valueOf(maxX));
-//                                            Log.d("wholepositions2", String.valueOf(seekBar.getWidth()));
-//                                            Log.d("wholepositions3", String.valueOf(seekBar.getThumbOffset()));
-                                            int val = (seekBar.getProgress() * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-//                                            Log.d("wholepositions3", String.valueOf(seekBar.getProgress()));
-//                                            Log.d("wholepositions4", String.valueOf((seekBar.getWidth() - 2 * seekBar.getThumbOffset())));
 
-                                            int textViewX = val - (myText.getWidth() / 2);
-//                                            Log.d("wholepositions5", String.valueOf(val));
-//                                            Log.d("wholepositions6", String.valueOf(textViewX));
 
-                                            int finalX = myText.getWidth() + textViewX > maxX ? (maxX - myText.getWidth()) : textViewX /*your margin*/;
-                                            //  Log.d("wholepositions7", String.valueOf(finalX));
-                                            myText.setX(finalX < 0 ? 0/*your margin*/ : finalX);
-                                            myText.setTextSize(25);
-                                            // Log.d("wholepositions", "x is" + String.valueOf(v.getX()) + "y is " + String.valueOf(v.getX()));
-                                            seekBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                        }
-                                    });
-                                }
-                                //  Log.d(TAG,"reached4");
 
-                                if (ff.intValue() >= 75) {
-                                    imageId = R.drawable.ic_cool;
-                                    //  excellent.setText(f.toString());
-                                    // excellent.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_excellent));
-
-                                } else if (ff.intValue() > 65) {
-                                    imageId = R.drawable.ic_sad;
-                                    /// satisfacotry.setText(f.toString());
-                                    //  satisfacotry.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_satisfactory));
-
-                                } else {
-                                    imageId = R.drawable.ic_crying;
-                                    //  bad.setText(f.toString());
-                                    // bad.setBackground(getResources().getDrawable(R.drawable.circle_aggregade_bad));
-
-                                }
-
-                            }
                         } catch (Exception e) {
                             //  Log.d(TAG,String.valueOf(e));
                         }
@@ -397,32 +357,56 @@ private SeekBar seekBar,seekBarPercentage;
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 hideProgress();
-               // if(checkNet()) {
                     showPercentage();
-              //  }
-                // progressBar.setVisibility(View.INVISIBLE);
-                // Log.d(TAG+"Exception","exception raised"+t.toString());
-//                hideProgress();
-//                ConnectionInterface connectionInterface= (ConnectionInterface) getActivity();
-//                connectionInterface.reload();
-                //Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
             }
         });
     }
+    public void tabCall(String myTab)
+    {
+        Double per=Double.valueOf(myPercentage.get(myTab));
+        String percentage=df.format(per);
+        Double original=Double.parseDouble(percentage);
+        showPercentage.setText(percentage);
+       // seekBarPercentage.setProgress(original.intValue());
+       // showStatus(seekBarPercentage,showPercentage);
+       // showStatus(seekBarPercentage,individualStatus);
+       // setUpImages(original.intValue(),individualStatus);
+        try{
+           // seekBarPercentage.setThumb(getResources().getDrawable(imageId));
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void tabMethod(TabLayout.Tab tab)
+    {
+        try{
+            String getTab=tab.getText().toString();
+            String myTab= getTab.toLowerCase().replace(" ", "");
+           // tabCall(myTab);
+           // showSemister.setText(getTab);
+        }catch (Exception E)
+        {
+
+        }
+    }
 public  void tabListener()
 {
+   // tabCall("sem11");
+   // showSemister.setText("SEM 11");
+    TabLayout.Tab tab=new TabLayout.Tab();
+   // tabMethod(tab);
     tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             try{
-          String myTab=  tab.getText().toString().toLowerCase().replace(" ", "");
-          Log.d(TAG+"tabChanged",myTab);
-          Log.d(TAG+"tabChanged",myPercentage.get(myTab));
-          showPercentage.setText(myPercentage.get(myTab));
-
+          String getTab=tab.getText().toString();
+               String myTab= getTab.toLowerCase().replace(" ", "");
+       // tabCall(myTab);
+      //  showSemister.setText(getTab);
         }catch (Exception e)
             {
-
+Log.d(TAG+"seekException",e.getMessage());
             }
         }
 

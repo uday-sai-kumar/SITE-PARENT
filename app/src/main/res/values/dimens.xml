@@ -17,16 +17,17 @@
 
     <!--TODO:cardStrokeWidth-->
     <dimen name="cardStrokeWidth">0.6dp</dimen>
-    <dimen name="cardMargin">2dp</dimen>
+    <dimen name="cardLayoutMargin">3dp</dimen>
 
-    <dimen name="cardMarginMain">4dp</dimen>
+    <dimen name="cardMarginMain">3dp</dimen>
 
-    <dimen name="drawableStrokeWidth">2.5dp</dimen>
+    <dimen name="drawableStrokeWidth">3dp</dimen>
 
     <dimen name="chipStrokeWidth">1dp</dimen>
     <dimen name="cardCornerRadius">8dp</dimen>
-    <dimen name="textSize">16sp</dimen>
-    <dimen name="textSize1">17sp</dimen>
-    <dimen name="textSize2">18sp</dimen>
-
+    <dimen name="textSize">14sp</dimen>
+    <dimen name="textSize1">15sp</dimen>
+    <dimen name="textSize2">16sp</dimen>
+    <dimen name="textSize3">17sp</dimen>
+<dimen name="thickNessRatio">2.5</dimen>
 </resources>

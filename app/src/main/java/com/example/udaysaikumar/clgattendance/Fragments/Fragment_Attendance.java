@@ -242,13 +242,13 @@ maxX=point.x;
 
                         f = Float.parseFloat(jsonObject1);
                         if (f >= 75) {
-                            imageId = R.drawable.ic_cool;
+                            imageId = R.drawable.high_logo;
 
                         } else if (f > 65) {
-                            imageId = R.drawable.ic_sad;
+                            imageId = R.drawable.medium_logo;
 
                         } else {
-                            imageId = R.drawable.ic_crying;
+                            imageId = R.drawable.low_logo;
 
                         }
                         myText.setText(f.toString());
@@ -406,7 +406,7 @@ public void displayTable()
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 0, 0, 1);
                 TextView t2 = new TextView(v.getContext());
-                t2.setTextAppearance(v.getContext(),R.style.TextViewTheme);
+                t2.setTextAppearance(v.getContext(),R.style.TextViewBlue);
                 t2.setText("Subject");
                 //t2.setSingleLine();
                 t2.setMaxLines(1);
@@ -418,7 +418,7 @@ public void displayTable()
                 t2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tr1.addView(t2, layoutParams);
                 TextView t3 = new TextView(v.getContext());
-                t3.setTextAppearance(v.getContext(),R.style.TextViewTheme);
+                t3.setTextAppearance(v.getContext(),R.style.TextViewBlue);
                 t3.setText("Period");
              //   t3.setSingleLine();
                 t3.setMaxLines(1);
@@ -434,7 +434,7 @@ public void displayTable()
                     TableRow tr = new TableRow(v.getContext());
                     layoutParams.setMargins(0, 0, 0, 1);
                     TextView t = new TextView(v.getContext());
-                    t.setTextAppearance(v.getContext(),R.style.TextViewTheme);
+                    t.setTextAppearance(v.getContext(),R.style.TextViewGreen);
                     String newString=linkedList.get(i).getSubjectName();
                     t.setText(newString);
                     t.setPadding(5, 0, 0, 0);

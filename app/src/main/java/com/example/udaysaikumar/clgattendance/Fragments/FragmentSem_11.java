@@ -116,7 +116,7 @@ public class FragmentSem_11 extends Fragment {
                 tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
-                t.setTextAppearance(v.getContext(),R.style.TextViewTheme);
+                t.setTextAppearance(v.getContext(),R.style.TextViewGreen);
                 t.setText(key);
                 t.setTypeface(typeface);
                // t.setTextColor(Color.BLACK);
@@ -166,7 +166,7 @@ public class FragmentSem_11 extends Fragment {
                 //    tr.setLayoutParams(layoutParams);
 
                 TextView t = new TextView(v.getContext());
-                t.setTextAppearance(v.getContext(),R.style.TextViewTheme);
+                t.setTextAppearance(v.getContext(),R.style.TextViewGreen);
                 t.setText(key);
                 t.setGravity(Gravity.START);
               //  t.setTextColor(Color.BLACK);

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+      //  Objects.requireNonNull(getSupportActionBar()).hide();
         API_KEY=getResources().getString(R.string.APIKEY);
         phone=findViewById(R.id.pNo);
         progressBar=findViewById(R.id.progressBar);

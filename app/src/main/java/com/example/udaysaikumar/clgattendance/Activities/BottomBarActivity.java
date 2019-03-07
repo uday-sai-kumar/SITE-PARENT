@@ -1,5 +1,4 @@
 package com.example.udaysaikumar.clgattendance.Activities;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -8,17 +7,15 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
-
 import com.example.udaysaikumar.clgattendance.Adapters.BottomPagerAdapter;
 import com.example.udaysaikumar.clgattendance.Interfaces.ConnectionInterface;
 import com.example.udaysaikumar.clgattendance.Interfaces.ImageInterface;
 import com.example.udaysaikumar.clgattendance.CustomViewPage.PagerTransformer;
 import com.example.udaysaikumar.clgattendance.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.Fragment;
@@ -33,7 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toolbar;
 
 import com.example.udaysaikumar.clgattendance.Fragments.Fragment_Attendance;
 import com.example.udaysaikumar.clgattendance.Fragments.Fragment_Feedback;
@@ -85,19 +81,53 @@ Fragment fragment=null;
         return  super.onOptionsItemSelected(item);
 
     }
+    public void share()
+    {
+
+                Intent sharing=new Intent(Intent.ACTION_SEND);
+                sharing.setType("text/plain");
+                sharing.putExtra(Intent.EXTRA_SUBJECT,"Share");
+                sharing.putExtra(Intent.EXTRA_TEXT,"https://play.google.com/store/apps/details?id=com.redants.siteParent");
+                startActivity(Intent.createChooser(sharing,"Share"));
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_bar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        toolbar=findViewById(R.id.myToolBar);
+        toolbar.inflateMenu(R.menu.action_bar_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.logat:{
+                        SharedPreferences sharedPreferences=getSharedPreferences("MyLogin",MODE_PRIVATE);
+                        sharedPreferences.edit().remove("logged").apply();
+                        sharedPreferences.edit().remove("username").apply();
+                        sharedPreferences.edit().remove("password").apply();
+                        sharedPreferences.edit().remove("phone").apply();
+                        sharedPreferences.edit().remove("otp").apply();
+                        sharedPreferences.edit().remove("marks").apply();
+                        sharedPreferences.edit().remove("profile").apply();
+                        sharedPreferences.edit().remove("attendance").apply();
+                        Intent i=new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }
+                return false;
+            }
+        });
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.logo);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
 //        ImageView imageView = new ImageView(getSupportActionBar().getThemedContext());
 //        imageView.setScaleType(ImageView.ScaleType.CENTER);
 //        imageView.setImageResource(R.drawable.logo);
 //        getSupportActionBar().setCustomView(imageView);
-
-        coordinatorLayout=findViewById(R.id.mycoordinate);
+        //coordinatorLayout=findViewById(R.id.mycoordinate);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         relativeLayout=findViewById(R.id.myrelative);
        // frameLayout=findViewById(R.id.frame);
@@ -158,7 +188,9 @@ viewPager.setPageTransformer(false,new PagerTransformer());
                 viewPager.setCurrentItem(3);
                 break;
 
-
+            case R.id.share:
+                share();
+                break;
 
                // return  true;
 

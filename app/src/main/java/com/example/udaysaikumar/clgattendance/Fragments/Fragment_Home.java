@@ -157,8 +157,13 @@ API_KEY=getResources().getString(R.string.APIKEY);
     public void showProfile()
     {
         showProgress();
-       // basic.removeAllViewsInLayout();
-       // btech.removeAllViewsInLayout();
+        try {
+            basic.removeAllViewsInLayout();
+            btech.removeAllViewsInLayout();
+        }catch (Exception E)
+        {
+
+        }
         String q="{\"regno\":{$eq:\""+UNAME+"\"}}";
         retroGet = RetrofitMarksServer.getSecRetrofit().create(RetroGet.class);
         Call<String> dataCall = retroGet.getProfile(PROFILE,API_KEY,q);
@@ -192,19 +197,22 @@ API_KEY=getResources().getString(R.string.APIKEY);
                         Typeface typeface = ResourcesCompat.getFont(v.getContext(), R.font.open_sans);
                         while (it.hasNext()) {
                             String key = it.next();
+                            TableRow.LayoutParams layoutParams=new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                            layoutParams.setMargins(0,0,0,1);
                             TableRow tableRow = new TableRow(v.getContext());
                             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                             TextView t1 = new TextView(v.getContext());
-                            t1.setTextAppearance(v.getContext(),R.style.TextViewTheme2);
+
+                            t1.setTextAppearance(v.getContext(),R.style.TextViewGreen);
                             t1.setTypeface(typeface);
                            // t1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                             t1.setGravity(Gravity.START|Gravity.CENTER_HORIZONTAL);
-                            //t1.setBackgroundColor(getResources().getColor(R.color.bagroundText));
+                            t1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                          //   t1.setTextColor(Color.WHITE);
                             // t1.setBackgroundColor(Color.WHITE);
                             //  t1.setBackgroundResource(R.drawable.table_custom_text);
                             t1.setText(key);
-                            tableRow.addView(t1);
+                            tableRow.addView(t1,layoutParams);
                             TextView t2 = new TextView(v.getContext());
                             t2.setTextAppearance(v.getContext(),R.style.TextViewTheme1);
                             t2.setTypeface(typeface);
@@ -213,16 +221,16 @@ API_KEY=getResources().getString(R.string.APIKEY);
                             // t2.setBackgroundResource(R.drawable.table_custom_text);
                             t2.setText(jj.get(key).toString());
                             t2.setGravity(Gravity.START|Gravity.CENTER_HORIZONTAL);
-                           // t2.setBackgroundColor(Color.WHITE);
+                            t2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
                             //t2.setTextAppearance(getContext(),android.R.style.TextAppearance_DeviceDefault_Medium);
-                            tableRow.addView(t2);
+                            tableRow.addView(t2,layoutParams);
                             basic.addView(tableRow, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
                         }
                         TableRow tableRow1 = new TableRow(v.getContext());
                         tableRow1.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                         TextView ttt = new TextView(v.getContext());
-                        ttt.setTextAppearance(v.getContext(),R.style.TextViewTheme1);
+                        ttt.setTextAppearance(v.getContext(),R.style.TextViewBlue);
                         ttt.setText(YEAR);
                         ttt.setGravity(Gravity.CENTER);
                         ttt.setTypeface(typeface);
@@ -233,16 +241,15 @@ API_KEY=getResources().getString(R.string.APIKEY);
                        // ttt.setBackgroundColor(getResources().getColor(R.color.homeColor));
                         tableRow1.addView(ttt);
                         TextView tt = new TextView(v.getContext());
-                        tt.setTextAppearance(v.getContext(),R.style.TextViewTheme2);
+                        tt.setTextAppearance(v.getContext(),R.style.TextViewBlue);
                         tt.setText(getResources().getText(R.string.sem1));
                         tt.setGravity(Gravity.CENTER);
                         tt.setTypeface(typeface);
                         //tt.setBackgroundColor(getResources().getColor(R.color.homeColor));
                         // tt.setBackgroundColor(Color.parseColor("#ffcdd2"));
-                        tt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                         tableRow1.addView(tt);
                         TextView tt1 = new TextView(v.getContext());
-                        tt1.setTextAppearance(v.getContext(),R.style.TextViewTheme2);
+                        tt1.setTextAppearance(v.getContext(),R.style.TextViewBlue);
                         tt1.setText(getResources().getText(R.string.sem2));
                        // tt1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
                         tt1.setTypeface(typeface);
@@ -258,7 +265,7 @@ API_KEY=getResources().getString(R.string.APIKEY);
                             tableRow.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             TextView t1 = new TextView(v.getContext());
                             t1.setTypeface(typeface);
-                            t1.setTextAppearance(v.getContext(),R.style.TextViewTheme1);
+                            t1.setTextAppearance(v.getContext(),R.style.TextViewGreen);
                             t1.setGravity(Gravity.START|Gravity.CENTER_HORIZONTAL);
                            // t1.setSingleLine();
                             t1.setMaxLines(1);

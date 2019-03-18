@@ -94,7 +94,8 @@ public void stopTouchListener(SeekBar myseekBar)
         df.setRoundingMode(RoundingMode.FLOOR);
         progressBar=v.findViewById(R.id.marksProgress);
         linearLayout=v.findViewById(R.id.marksLayout);
-        showPercentage=v.findViewById(R.id.showPercentage);
+       // seekBar.setPadding(0,0,0,0);
+       // showPercentage=v.findViewById(R.id.showPercentage);
       //  seekBarPercentage=v.findViewById(R.id.seekBarPercentage);
       //  showSemister=v.findViewById(R.id.showSemister);
         status=v.findViewById(R.id.status);
@@ -297,6 +298,7 @@ public void stopTouchListener(SeekBar myseekBar)
                             //  Log.d(TAG,String.valueOf(e));
                         }
                         try{
+
                             seekBar.setThumb(getResources().getDrawable(imageId));
                         }catch (Exception e)
                         {
@@ -351,7 +353,7 @@ public void stopTouchListener(SeekBar myseekBar)
 
                 }
 
-                Log.d(TAG+"mapData",myPercentage.toString());
+                //Log.d(TAG+"mapData",myPercentage.toString());
             }
 
             @Override

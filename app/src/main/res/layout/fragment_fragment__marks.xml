@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/cardLayoutMargin"
                 style="@style/TextViewGreen"
-                android:textSize="12sp"
                 android:background="@color/blackColor"
                 android:text="@string/aggregated_percentage"/>
             <com.google.android.material.card.MaterialCardView

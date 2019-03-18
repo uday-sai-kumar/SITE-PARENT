@@ -68,12 +68,12 @@ public class FragmentSem_11 extends Fragment {
             //tableLayout.addView(tr, new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }*/
         String str = getArguments() != null ? getArguments().getString("data") : null;
+        String semister=getArguments()!=null?getArguments().getString("semister"):null;
         try{
             if (str.contains("points")) {
                 subject.setText(R.string.subject);
                 internals.setText(R.string.internals1);
                 externals.setText(R.string.externals1);
-
                 total.setText(R.string.totalmarks1);
             }else
             {
@@ -167,6 +167,10 @@ public class FragmentSem_11 extends Fragment {
 
                 TextView t = new TextView(v.getContext());
                 t.setTextAppearance(v.getContext(),R.style.TextViewGreen);
+                if(key.trim().equals("%"))
+                {
+                    t.setText(semister+" "+key);
+                }else
                 t.setText(key);
                 t.setGravity(Gravity.START);
               //  t.setTextColor(Color.BLACK);

@@ -5,6 +5,7 @@ import com.example.udaysaikumar.clgattendance.Login.UserDetails;
 
 import java.util.List;
 
+import androidx.annotation.Keep;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -13,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
+@Keep
 public interface RetroGet {
     @GET("collections/{col}")
     Call<List<LoginData>> getPhone(@Path("col") String col,@Query("apiKey") String key, @Query("q") String q);

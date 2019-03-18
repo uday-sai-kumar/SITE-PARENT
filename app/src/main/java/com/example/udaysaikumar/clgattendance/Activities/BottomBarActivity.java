@@ -132,7 +132,7 @@ Fragment fragment=null;
         relativeLayout=findViewById(R.id.myrelative);
        // frameLayout=findViewById(R.id.frame);
 viewPager=findViewById(R.id.viewPager);
-viewPager.setOffscreenPageLimit(3);
+viewPager.setOffscreenPageLimit(4);
 //myLayout=findViewById(R.id.myLayout);
 viewPager.setPageTransformer(false,new PagerTransformer());
         final FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
@@ -227,7 +227,7 @@ checkNet();
                     }
 
                 });
-
+snackbar.setActionTextColor(getResources().getColor(R.color.selectcolor));
                 snackbar.show();
 
 

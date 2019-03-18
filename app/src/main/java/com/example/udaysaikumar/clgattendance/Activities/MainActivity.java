@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -73,7 +74,13 @@ showProgress();
                         public void onResponse(@NonNull Call<List<PhoneData>> call, @NonNull Response<List<PhoneData>> response) {
                             if (response.body()!= null ) {
                                 list = response.body();
-                                System.out.println("ourresponse"+list);
+                                try {
+                                    System.out.println("ourresponse" + list.get(0).parentmobile);
+                                    System.out.println("ourresponse" + list.get(0).studentmobile);
+                                }catch (Exception e)
+                                {
+                                    Log.d("ourresponse",e.getMessage());
+                                }
                                 try{
                                 if (!list.isEmpty()) {
                                     if (Long.parseLong(phoneNo)==list.get(0).getStudentmobile() || Long.parseLong(phoneNo)==list.get(0).getParentmobile()) {
@@ -103,7 +110,7 @@ showProgress();
 
                             }
                             catch (Exception e){
-hideProgress();
+                            hideProgress();
                             }
 
                             }

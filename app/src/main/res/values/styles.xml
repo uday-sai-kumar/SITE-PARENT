@@ -10,9 +10,6 @@
 
     </style>
 
-    <style name="PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@color/colorPrimaryDark</item>
-    </style>
     <style name="BrandButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/greenColor</item>
         <item name="backgroundTint">#000000</item>
@@ -36,7 +33,7 @@
         <item name="boxStrokeColor">@color/focus_tint_list</item>
         <item name="android:strokeWidth">@dimen/chipStrokeWidth</item>
         <item name="hintTextColor">@color/teelColor</item>
-          </style>
+    </style>
     <style name="TextInputEditTextTheme" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
         <item name="android:textColor">@color/greenColor</item>
         <item name="android:fontFamily">@font/open_sans_light</item>
@@ -114,9 +111,9 @@
         <item name="android:progressBackgroundTint">@color/whiteColor</item>
         <item name="android:secondaryProgressTint">@color/blueColor</item>
     </style>
-<style name="HeaderTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Header">
-    <item name="android:textColor">@color/blueColor</item>
-</style>
+    <style name="HeaderTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Header">
+        <item name="android:textColor">@color/blueColor</item>
+    </style>
     <style name="WeekTextAppearance" parent="TextAppearance.MaterialCalendarWidget.WeekDay">
         <item name="android:textColor">@color/greenColor</item>
     </style>
@@ -127,6 +124,4 @@
 
     <style name="BottomNavigationTheme" parent="Widget.MaterialComponents.BottomNavigationView">
     </style>
-
-
 </resources>

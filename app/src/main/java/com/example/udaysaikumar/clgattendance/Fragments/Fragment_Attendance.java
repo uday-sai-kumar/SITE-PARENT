@@ -1,6 +1,5 @@
 package com.example.udaysaikumar.clgattendance.Fragments;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -23,6 +21,8 @@ import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.udaysaikumar.clgattendance.Others.DayDecorator;
 import com.example.udaysaikumar.clgattendance.R;
 import com.example.udaysaikumar.clgattendance.RetrofitPack.RetroGet;
@@ -274,6 +274,8 @@ maxX=point.x;
                     }
                 }
                     catch (Exception e) {
+                    hideProgress();
+                    loadPercentage();
                         e.printStackTrace();
                     }
                 }
@@ -339,6 +341,7 @@ maxX=point.x;
                 // Log.d(TAG+"myAttendance","reached 9"+t.toString());
                 try {
                     hideProgress();
+                    Toast.makeText(v.getContext(), "please connect to active network", Toast.LENGTH_LONG).show();
                     //if(checkNet()) {
                        // callAttendance(month + "/" + year);
                   //  }

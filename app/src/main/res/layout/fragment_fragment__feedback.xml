@@ -108,6 +108,7 @@ android:fitsSystemWindows="true"
                                 android:hint="@string/write_suggestion_here"
                                 style="@style/TextInputEditTextTheme"
                                 android:gravity="top"
+
                                 android:inputType="textMultiLine" />
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
